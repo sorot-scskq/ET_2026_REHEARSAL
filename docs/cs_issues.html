@@ -469,6 +469,150 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </tbody>
 </table></div>
 
+<h2>【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</h2>
+<p>元の Issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26">https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26</a> 時点）／原本: sorot_spike の <code>Docs/parameters_matrix.md</code>（ブランチ <code>develop_20260925</code>）</p>
+<p>走行体のパラメータを、<b>どこを触ると何が変わるか</b>でまとめた資料。旋回でお尻がゲートに当たる件（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a>）の距離の話は <code>turn_drift</code> を参照。</p>
+<h3>先に：安定版と開発版でどこが違うか</h3>
+<p>原本は開発版（<code>develop_20260925</code>）の記述。<b>安定版（<code>develop</code>、大会の版 ffe75be）は値が違うものがあるので、git で確かめた結果を並べる。</b></p>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>安定版（develop）</th><th>開発版（develop_20260925）</th><th>rev1（develop_20260926_rev1）</th></tr></thead>
+<tbody>
+<tr><td><code>turn_drift.txt</code></td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><code>follow_plan.txt</code></td><td><b>0</b>（書き直さない）</td><td>無し（既定 1＝書き直す）</td><td>無し（既定 1）</td></tr>
+<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）</td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
+<tr><td><code>gate_steer.txt</code></td><td><b>無し（既定 0＝寄せない）</b></td><td><b>1</b></td><td><b>1</b></td></tr>
+<tr><td><code>TRUST_APPROACH_DEG</code>（観測を信じる斜めの上限）</td><td><b>15°</b></td><td>10°</td><td>10°</td></tr>
+<tr><td><code>MAX_APPROACH_DEG</code>（寄せてよい斜めの上限）</td><td><b>20°</b></td><td>8°</td><td>8°</td></tr>
+<tr><td><code>MIN_VERDICT_FRAMES</code>（判定に要る枚数）</td><td><b>無し</b></td><td>3</td><td>3</td></tr>
+<tr><td><code>MAX_CORRECTION_DEG</code>（入口の打ち直しの上限）</td><td>5°</td><td><b>15°</b>（9/26 に広げた）</td><td>15°</td></tr>
+<tr><td>カメラ校正（<code>camera_calib/&lt;機体&gt;/</code>）</td><td><b>無し（俯角 21.0° 固定）</b></td><td>有り（scsk2・scsk3）</td><td>有り</td></tr>
+<tr><td>C++ の値（<code>STOP_LEAD_TIME</code> 0.073s・<code>NXT_WHEEL_TURN_SLIP</code> 1.031・向きの上限 10°）</td><td>同じ</td><td>同じ</td><td>同じ</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><b>ゲートの寄せ（<code>gate_steer</code>）と自己位置の打ち直し（<code>heading_fix</code>）は、開発版にしか効いていない。</b> 安定版は向きの補正だけで走る（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>）。</li>
+<li>安定版の観測の条件は、開発版より緩い（15°・20°、枚数の条件なし）。緩いので、嘘の値を信じて寄せる危険は、寄せが止まっている安定版では実害になっていない。</li>
+<li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。</li>
+<li>差分の詳しい一覧は <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a>。</li>
+</ul>
+<h3>値の種類</h3>
+<div class="tw"><table>
+<thead><tr><th>種類</th><th>反映に要ること</th><th>触ってよいか</th></tr></thead>
+<tbody>
+<tr><td>1. つまみ（<code>sorot_spike/*.txt</code>）</td><td>ファイルを置くだけ</td><td><b>よい</b>。機能の入り切り</td></tr>
+<tr><td>2. 実測・公式の値</td><td>—</td><td><b>触らない</b>（合わない数字を押し付けると別の所が壊れる）</td></tr>
+<tr><td>3. 機体ごとのカメラ校正</td><td>ファイルを置くだけ</td><td>俯角だけ。走行ごとに動く</td></tr>
+<tr><td>4〜5. ゲートの観測・打ち直しの条件（Python）</td><td>再ビルド不要</td><td>よい</td></tr>
+<tr><td>6. C++ の校正定数</td><td><b>走行体で <code>make</code></b></td><td>触る前に Python 側でできないか考える</td></tr>
+</tbody>
+</table></div>
+<h3>1. つまみ（走行体に置くテキスト。再ビルド不要）</h3>
+<p>走行体はリポジトリの checkout なので、ソースの既定値を書き換えても <code>git pull</code> で戻る。そこで <code>./sorot_spike/&lt;名前&gt;.txt</code> の1行目に <code>1</code> か <code>0</code> を置いて上書きする。<b>ファイルが無ければソースの既定で動く。</b> 置いたらコミットして残すこと（管理外だったときは作り直しで消え、経路が 40cm 伸びた）。</p>
+<div class="tw"><table>
+<thead><tr><th>つまみ</th><th>ソースの既定</th><th>何のためのつまみか</th></tr></thead>
+<tbody>
+<tr><td><b><code>turn_drift.txt</code></b></td><td>1（置いてあるのは <b>0</b>）</td><td>旋回中に車体が並進するぶんを、手前の直進の <code>SCD</code> から先に差し引く補正</td></tr>
+<tr><td><code>follow_plan.txt</code></td><td>1</td><td>走りながら自己位置を見て、先の行の <code>SCD</code>/<code>SCR</code> を書き直すか（開ループをやめる）</td></tr>
+<tr><td><code>heading_hold.txt</code></td><td>1</td><td>直進を、ジャイロの向きを保つ直進（FUNCNO 19）で走るか、エンコーダ補正の直進（FUNCNO 5）で走るか</td></tr>
+<tr><td><code>heading_camera.txt</code></td><td>1</td><td>旋回直後の直進に、床のコードで向きを測る <code>SCRIPT</code> を差し込むか</td></tr>
+<tr><td><code>heading_fix.txt</code></td><td>0</td><td>測った向きを、走らせ方の目標だけでなく<b>自己位置にも</b>打ち直すか</td></tr>
+<tr><td><code>position_fix.txt</code></td><td>0</td><td>床のコードから出した<b>位置</b>のずれで自己位置を打ち直すか</td></tr>
+<tr><td><code>gate_check.txt</code></td><td>1</td><td>ゲートをカメラで見て「通れる／当たる」を記録するか（走りは変えない）</td></tr>
+<tr><td><code>gate_steer.txt</code></td><td>0</td><td>ゲートの観測を走りへ返し、中心へ寄せるか</td></tr>
+<tr><td><code>cycle_overrun_ms.txt</code></td><td>50</td><td>周期が何 ms を超えたら記録するか（0 で止める）</td></tr>
+</tbody>
+</table></div>
+<p><b>各つまみの要点</b></p>
+<div class="tw"><table>
+<thead><tr><th>つまみ</th><th>要点</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td><code>turn_drift</code></td><td>「旋回で後ろへ下がる」ぶんを先に余分に走る理屈。<b>下がらない今の機体では、足したぶんがそのまま行き過ぎになる</b></td><td>9/25 に 0 にした。1 のとき直進1本ごとに 2〜3cm、18本で 40cm 超。戻すのは <code>TURN_DRIFT_MM</code> を測り直したときだけ。効いているかは <code>grep "旋回中の並進" ev3_python.log</code>（「相殺: しない」が正しい）</td></tr>
+<tr><td><code>follow_plan</code></td><td>9/21 の実機で終点の開きが 84/90/108mm → 23/63mm</td><td>0 にしても止まりはしない。<b>安定版は 0</b></td></tr>
+<tr><td><code>heading_hold</code></td><td>FUNCNO 5 は滑りで向きがずれても気づかない</td><td>ジャイロは直進するだけで ±5°/80cm の<b>実在しない回転</b>を積む（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a>）。保とうとして実際に曲がり、記録では真っ直ぐに見える。それを外から直すのが <code>heading_camera</code></td></tr>
+<tr><td><code>heading_camera</code></td><td>床のコードは動かないので、旋回直後にカメラが格子に対する向きを測って目標を直す</td><td>直すのは目標だけ。自己位置は <code>heading_fix</code></td></tr>
+<tr><td><code>heading_fix</code></td><td>向きは「操舵の目標」と「x/y を積む方位」の2か所にある。0 だと走りは直っても自己位置が古い向きのまま積み続ける</td><td>床のコードの一辺のログは 1 のときだけ出る。<b>符号が逆の疑いがある（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</b></td></tr>
+<tr><td><code>position_fix</code></td><td>床のコードに当てて x/y を打ち直す</td><td><b>自己位置が半マス以上ずれていると隣のコードに当てる</b>（違う場所へ飛ぶ）。実機では未確認</td></tr>
+<tr><td><code>gate_check</code></td><td>自己位置の記録は実際の曲がりを隠す。ゲートは動かない外の基準</td><td>止めも曲げもしない</td></tr>
+<tr><td><code>gate_steer</code></td><td>向きを少し振って中心へ寄せる。振ったまま着くと 1° あたり 3.8mm 狭くなるので、遠くで振って 350mm 以内で正面に戻す</td><td><b>直せるのは約 49mm まで</b>（片側の余裕 47.5mm）。俯角が狂うとゲートを測れない。<b>安定版は 0（寄せない）</b></td></tr>
+<tr><td><code>cycle_overrun_ms</code></td><td>asp は 0.5〜1.25 秒固まることがあり、その間モータは最後の指令のまま走る</td><td>しきい値を超えたら、どのタスクのどの区間かを1行残す</td></tr>
+</tbody>
+</table></div>
+<h3>2. 実測・公式の値（<b>変えない</b>）</h3>
+<p>カメラが見た画素を床の mm に戻す物差し。1つ違うと距離も間隔も倍率でずれ、原因も見分けがつかない。<b>実測がある量から固定し、残った1つ（俯角）だけを動かす。</b></p>
+<div class="tw"><table>
+<thead><tr><th>量</th><th>値</th><th>何のための値か</th><th>出どころ</th></tr></thead>
+<tbody>
+<tr><td>色が始まる高さ</td><td>45.0mm</td><td>柱の色は床から 45mm 上で始まる。床と思うと間隔が 1.28倍に膨らむ</td><td>実測</td></tr>
+<tr><td>床 → レンズ</td><td>205.0mm</td><td>床までの距離はこの高さに比例する</td><td>実測</td></tr>
+<tr><td>足元のすき間</td><td>230.0mm</td><td><b>走行体が通る幅</b>。車体 135mm なので片側の余裕は <b>47.5mm</b></td><td>実測</td></tr>
+<tr><td>継手の外径</td><td>24mm</td><td>すき間と芯々の差</td><td>メーカー公式</td></tr>
+<tr><td>柱の芯々</td><td>254.0mm</td><td>カメラの物差し（検算用）。通れる幅ではない</td><td>230＋24</td></tr>
+<tr><td>車体の前から車軸</td><td>80.0mm</td><td>距離の基準点（回っても動かない点）</td><td>実測</td></tr>
+<tr><td>車輪の半径</td><td>27.5mm</td><td>回転を距離に直す係数。自己位置のすべてがここに乗る</td><td>実測</td></tr>
+<tr><td>トレッド</td><td>112.0mm</td><td>旋回角度の換算</td><td>実測</td></tr>
+</tbody>
+</table></div>
+<p>柱の芯々は 258 → 248 → 258 → 254 と4回動いた。数字を焼き込まない。</p>
+<h3>3. 機体ごとのカメラ校正（<code>RoughSpot/Python/2026/camera_calib/&lt;機体&gt;/</code>）</h3>
+<p><b>安定版にはこの校正が無く、俯角は 21.0° 固定。</b> 開発版には有る。<code>fx</code>/<code>cy</code> はチェスボードから出る固い値で、<b>俯角だけは写真に写らない</b>ので人が入れる。</p>
+<div class="tw"><table>
+<thead><tr><th>機体</th><th>俯角</th><th>fx</th><th>cy</th></tr></thead>
+<tbody>
+<tr><td>scsk2</td><td>18.2°</td><td>1317.5</td><td>320.3</td></tr>
+<tr><td>scsk3</td><td>22.0°</td><td>1271.9</td><td>365.5</td></tr>
+<tr><td>読めないとき</td><td>21.0°</td><td>1258.8</td><td>359.5</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li>俯角は定数ではない。柱に当たるたびに動く（1日で約 1°）。信用できるのは 400〜900mm の帯だけ（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a>）。</li>
+<li>校正が読めたかは起動ログで確かめる。<b>ファイルに 18.2 と書いてあっても、読めなければ 21.0 で走る。</b></li>
+</ul>
+<h3>4. ゲートの観測を信じる条件（Python）</h3>
+<p>カメラは斜めから見たり枚数が足りなかったりすると、平気で嘘の値を出す。嘘の値で寄せると当たる側へ寄せるので、「測れたが信じない」を作ってある。締めすぎると、当たっていた観測まで捨てる。</p>
+<div class="tw"><table>
+<thead><tr><th>定数</th><th>開発版</th><th>安定版</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><code>TRUST_APPROACH_DEG</code></td><td>10.0°</td><td><b>15.0°</b></td><td>これより斜めなら観測を信じない</td></tr>
+<tr><td><code>MIN_VERDICT_FRAMES</code></td><td>3</td><td><b>無し</b></td><td>判定に要る枚数。足りなければ「信用できません」と書く</td></tr>
+<tr><td><code>MAX_APPROACH_DEG</code></td><td>8.0°</td><td><b>20.0°</b></td><td>これより斜めなら寄せない</td></tr>
+<tr><td><code>SQUARE_UP_APPROACH_DEG</code></td><td>25.0°</td><td>―</td><td>近くでは緩める</td></tr>
+<tr><td><code>SQUARE_UP_MM</code></td><td>350.0mm</td><td>―</td><td>正面へ戻す段に入る距離</td></tr>
+<tr><td><code>MAX_SPAN_ERROR_MM</code></td><td>50.0mm</td><td>―</td><td>間隔が 254±50 を外れたら測りを疑う</td></tr>
+</tbody>
+</table></div>
+<p>9/25 に一度 5° へ締めたが、当たっていた観測（7.1°・4枚）を捨てて外れた観測（4.4°・2枚）を残したので 10° に戻した。効いていたのは角度より<b>枚数</b>。</p>
+<h3>5. 打ち直しの上限（Python）</h3>
+<p>間違えると違う場所へ飛ぶので上限がある。<b>超えたら打ち直さず見送る。</b></p>
+<div class="tw"><table>
+<thead><tr><th>定数</th><th>開発版</th><th>安定版</th><th>意味</th></tr></thead>
+<tbody>
+<tr><td><code>MAX_CORRECTION_DEG</code></td><td><b>15.0°</b></td><td><b>5.0°</b></td><td>向きの打ち直しの上限（入口 29/2。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a>）</td></tr>
+<tr><td><code>MIN_MARKERS</code></td><td>4</td><td>―</td><td>目印がこれ未満なら位置を出さない</td></tr>
+<tr><td><code>MAX_OFFSET_MM</code></td><td>約 82mm</td><td>―</td><td>格子の 1/3。超えたら取り違えとみなす</td></tr>
+<tr><td><code>MAX_DEVIATION_DEG</code></td><td>6.0°</td><td>―</td><td>同上（向き）</td></tr>
+<tr><td><code>TURN_DRIFT_MM</code></td><td>-25.9 / 4.6 / -29.7 / 1.1</td><td>同じ</td><td>旋回中の並進の見込み。<b>いまの機体には 16〜20mm 大きい</b></td></tr>
+</tbody>
+</table></div>
+<h3>6. C++ の校正定数（<b>走行体で <code>make</code> が要る</b>。版による差なし）</h3>
+<p>走りそのものを作っている値。速度と電池で変わる値が混ざっているので、速度を変えたら校正が無効になる。</p>
+<div class="tw"><table>
+<thead><tr><th>定数</th><th>値</th><th>何のためか</th></tr></thead>
+<tbody>
+<tr><td><code>STOP_LEAD_TIME</code></td><td>0.073s</td><td>止まる指令から止まるまでの空走を見込んで先に止める。速度に比例し、冷間と温間で 11% 違う</td></tr>
+<tr><td><code>NXT_WHEEL_RADIUS</code></td><td>27.5mm</td><td>回転 → 距離</td></tr>
+<tr><td><code>NXT_WHEEL_INTERVAL</code></td><td>112.0mm</td><td>左右差 → 旋回角度</td></tr>
+<tr><td><code>NXT_WHEEL_TURN_SLIP</code></td><td>1.031</td><td>旋回の横滑り。各輪 PWM 40 で 1.031、100 で 1.333。旋回を速くすると無効</td></tr>
+<tr><td><code>KP_REFERENCE_FWD</code></td><td>40</td><td>ライントレースの P を速度で割り戻す基準</td></tr>
+<tr><td><code>HEADING_CORRECT_MAX_DEG</code> / <code>COORD_CORRECT_MAX_DEG</code></td><td>10.0°</td><td>向きの補正・自己位置の打ち直しの C++ 側の上限（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a>）</td></tr>
+</tbody>
+</table></div>
+<h3>7. 罠</h3>
+<ul>
+<li><b>同じ名前で符号が逆の定数がある。</b> <code>heading_reader.CAMERA_TO_AXLE_FORWARD_MM = -20</code>、<code>gate_finder</code> は <code>+20</code>。どちらを import したかで 40mm ずれるが、一定のずれなので気づきにくい。</li>
+<li><b>経路の <code>Comment</code> の距離と <code>SCD</code> は別の量。</b> <code>Comment</code> は PC が書いた補正前、<code>SCD</code> は <code>turn_drift</code> で相殺した後。食い違っていても不具合ではない。</li>
+<li><b>電池を替えたら測り直す量がある</b>（<code>STOP_LEAD_TIME</code>・<code>TURN_DRIFT_MM</code>）。</li>
+</ul>
+
 <h2>どの版で起きたか（安定版／開発版）</h2>
 <p class="k">issue 本文・起票日・git の履歴から分類した。9/26 の走行ログはこの Mac に無いため、その日の版は Issue 内の版の記載と、コミットが入っているブランチから決めた。</p>
 <h3>安定版で起きた（develop ffe75be・大会の版）（8件）</h3>
