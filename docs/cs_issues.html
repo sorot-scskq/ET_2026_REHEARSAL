@@ -100,7 +100,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <span class="chip dont">一覧・資料 3件（#64 #47 #19）</span>
   </div>
 </header>
-<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースの場所</a></li><li><a href="#params">パラメータ一覧（#47）</a></li><li><a href="#do">対応する</a></li><li><a href="#dont">対応しない</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">大会後の方針（#64）</a></li><li><a href="#d74">develop と rev1 の差（#74）</a></li><li><a href="#ver">どの版で起きたか</a></li></ol><p style="margin:10px 0 0;font-size:12px;color:var(--sub)"><span class="v cl">済</span> は、2026-10-01 時点でクローズ済みの issue（経緯の記録として残している）</p></nav>
+<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースのどこで起きるか</a></li><li><a href="#params">【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</a></li><li><a href="#do">CS大会までに対応する（未完了 16件／全19件）</a></li><li><a href="#dont">CS大会までに対応しない（未完了 11件／全15件）</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</a></li><li><a href="#d74">develop に 9/26 rev1 で効いた直しが入っていない（29/2 heading_fix.py・29/1・gate_steer・follow_plan）</a></li><li><a href="#ver">どの版で起きたか（安定版／開発版）</a></li></ol><p style="margin:10px 0 0;font-size:12px;color:var(--sub)"><span class="v cl">済</span> は、2026-10-01 時点でクローズ済みの issue（経緯の記録として残している）</p></nav>
 
 
 <h2 id="course">コースのどこで起きるか</h2>
@@ -246,8 +246,13 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tbody>
 <tr><td><code>turn_drift.txt</code></td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><code>follow_plan.txt</code></td><td><b>0</b>（書き直さない）</td><td>無し（既定 1＝書き直す）</td><td>無し（既定 1）</td></tr>
+<tr><td><code>heading_hold.txt</code></td><td>無し（既定 1＝ジャイロで向きを保つ直進）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
+<tr><td><code>heading_camera.txt</code></td><td>無し（既定 1＝床のコードで向きを測る）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）</td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
+<tr><td><code>position_fix.txt</code></td><td>無し（既定 0＝位置は打ち直さない）</td><td>無し（既定 0）</td><td>無し（既定 0）</td></tr>
+<tr><td><code>gate_check.txt</code></td><td>無し（既定 1＝ゲートを見て記録する）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>gate_steer.txt</code></td><td><b>無し（既定 0＝寄せない）</b></td><td><b>1</b></td><td><b>1</b></td></tr>
+<tr><td><code>cycle_overrun_ms.txt</code></td><td>無し（既定 50ms）</td><td>無し（既定 50ms）</td><td>無し（既定 50ms）</td></tr>
 <tr><td><code>TRUST_APPROACH_DEG</code>（観測を信じる斜めの上限）</td><td><b>15°</b></td><td>10°</td><td>10°</td></tr>
 <tr><td><code>MAX_APPROACH_DEG</code>（寄せてよい斜めの上限）</td><td><b>20°</b></td><td>8°</td><td>8°</td></tr>
 <tr><td><code>MIN_VERDICT_FRAMES</code>（判定に要る枚数）</td><td><b>無し</b></td><td>3</td><td>3</td></tr>
@@ -257,6 +262,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </tbody>
 </table></div>
 <ul>
+<li><b>つまみ9つのうち、版で値が違うのは <code>follow_plan</code>・<code>heading_fix</code>・<code>gate_steer</code> の3つ。</b>残りの6つは、どの版も同じ値（置いていないか、同じ値）。</li>
 <li><b>ゲートの寄せ（<code>gate_steer</code>）と自己位置の打ち直し（<code>heading_fix</code>）は、開発版にしか効いていない。</b> 安定版は向きの補正だけで走る（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>）。</li>
 <li>安定版の観測の条件は、開発版より緩い（15°・20°、枚数の条件なし）。緩いので、嘘の値を信じて寄せる危険は、寄せが止まっている安定版では実害になっていない。</li>
 <li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。</li>
