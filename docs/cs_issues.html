@@ -392,6 +392,72 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   </tbody>
 </table></div>
 
+<h2>どの版で起きたか（安定版／開発版）</h2>
+<p class="k">issue 本文に書かれた走行の版から分類した。判断に迷うものは理由の欄に書いた。</p>
+<h3>安定版で起きた（develop ffe75be）（6件）</h3>
+<p class="k">大会の版の走行で確認したもの。対応の対象</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a></td><td>9/27 会場＋本社の走行（develop ffe75be のまま、設定も本番から変更なし）。色で入口の向きが約10°違う</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a></td><td>#54 の切り出し。赤の運び終わり（21/11〜12）が原因。ログは develop の走行</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a></td><td>#54 の切り出し。カメラ俯角が会場と本社で約3°違った（本社 16:17 の走行）</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a></td><td>#54 の切り出し。後から追えない記録を足す</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a></td><td>#54 の切り出し。本社 16:17 の 30/23 で +10.05° を捨てた</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a></td><td>#54 の切り出し。develop は gate_steer=0 で、働いたのは向き補正だけ（9/26〜27 の走行から）</td></tr>
+</tbody>
+</table></div>
+<h3>開発版で起きた（develop_20260925／develop_20260926_rev1）（10件）</h3>
+<p class="k">開発版の走行・機能だけで起きるもの。原則、対応しない</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></td><td>9/26 10:08・10:35（rev1）で floor_code の打ち直しでずれが育った</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></td><td>9/25〜9/26 の6走行（b9f6730〜0cf2e89。すべて開発版）。ただし中身は #54・#59・#63 と同じで、安定版でも起きる</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a></td><td>9/26 14:36（rev1 0cf2e89）で足した 29/1 の行の話。29/1 は開発版にしかない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a></td><td>9/26 10:08・10:35（rev1）。ただし安定版も 29/2 で同じ heading_fix.py を使うので、逆なら安定版にも効く</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a></td><td>9/26 10:35（rev1）。heading_fix.txt=1 のときだけ</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/78">#78</a></td><td>615c804・49e6331 は開発版だけに入っている。develop には無い</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></td><td>9/26 10:35（rev1）の走行で6本すべて当たった</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></td><td>柱1本の判定は rev1 にだけ入っている機能。develop には未反映</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></td><td>PC の開発版（develop_20260925）の上で検証した提案</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></td><td>PC の開発版（develop_20260925 の 77009c1）で480配置を作って確かめた</td></tr>
+</tbody>
+</table></div>
+<h3>版に依らない（コード・手順・PC の話）（11件）</h3>
+<p class="k">どの走行体の版でも同じ。または PC-System・手順の問題</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/65">#65</a></td><td>PC の経路計算の車体寸法。PC-System の版の話で、走行体の版とは別</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></td><td>PC と手引きの値の食い違い。PC-System と Docs の話</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></td><td>PC の経路（2026-09-26 の JSON）の作りの話。PC-System の版の話</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a></td><td>I/F の未決定事項。版に依らない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></td><td>Bluetooth・本番前の手順。版に依らない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a></td><td>母艦のネットワーク設定。版に依らない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></td><td>LAP までのライントレース。版を区別した記載なし</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a></td><td>同上（制御式の話）</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></td><td>同上</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a></td><td>走り出しの手順・規約の話。版に依らない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></td><td>提案（まだ作っていない）</td></tr>
+</tbody>
+</table></div>
+<h3>版の記載がない／不具合そのものではない（8件）</h3>
+<p class="k">issue に走行した版が書かれていない。確認が要る</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a></td><td>版の記載なし（古い issue）</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></td><td>版の記載なし。#66 で確かめ直した</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></td><td>版の記載なし（走行体の距離調整）。#65 に関係</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></td><td>版の記載なし（9/25 の turn_drift の行き過ぎとみられる）</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></td><td>版の記載なし（画像のみ）。情報が足りない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></td><td>2026-09-26 に2回。赤ルート（21）のコードは版で差がないが、走行した版は書かれていない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></td><td>develop と rev1 の差分を並べた issue。不具合そのものではない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></td><td>develop の設定ファイルの左右差の確認。不具合の発生版は無関係</td></tr>
+</tbody>
+</table></div>
+
 <footer>
   一覧の issue <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a>・パラメータ一覧 <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47">#47</a> は資料なので分類から外した。コースの地図はチームのパンフレットの Lコース図。数字は各 issue の本文から。
 </footer>
