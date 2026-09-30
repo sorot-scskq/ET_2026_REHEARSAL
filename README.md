@@ -139,6 +139,33 @@ open issue 37件（2026-09-29 時点）を、**コースのどこで起きるか
 | #15 走行体の経過時間を PC へ渡す（動作未確認） | 実機で動かしてマージするか（3リポジトリに `feature…issue15` の枝がある） |
 | #47 走行体のパラメータ一覧 | 資料。原本（`Docs/parameters_matrix.md`）を直したら更新する |
 
+## develop に 9/26 rev1 で効いた直しが入っていない（29/2 heading_fix.py・29/1・gate_steer・follow_plan）
+
+元の Issue: https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74
+
+### 何が起きたか
+
+`origin/develop`（e1d541b 時点）には、2026-09-26 に `develop_20260926_rev1` で効いた直しが入っていない。develop で Lコースを走ると、昨日いちばん良かった走り（14:36、0cf2e89）とは次の点が違う。
+
+| 項目 | develop | rev1（0cf2e89） | 走りへの影響 |
+| --- | --- | --- | --- |
+| custom_Left.json 29/2 の SCRIPT | **`heading_fix.py`** | 無し | 符号が逆の疑いのある floor_code で自己位置を打ち直す（#70） |
+| 経路の前で止まって向きを測る行（29/1） | 無し | 有り | 入り口の回りを測らない |
+| `gate_steer.txt` | **無し（既定 0 ＝寄せない）** | 1 | 寄せが止まる |
+| `follow_plan.txt` | **0（書き直さない）**（94363a7） | 無し（既定 1） | 経路の書き直しが止まる |
+| `heading_fix.txt` | 無し（既定 0） | 0 | 同じ |
+| `turn_drift.txt` | 0 | 0 | 同じ |
+
+### 決めること
+
+- develop を本番の版にするなら、1d48e0b（29/2 の heading_fix.py 削除）と 0cf2e89（29/1 の測る行）を入れるか
+- gate_steer / follow_plan をどちらにするか（develop で 0 にした理由を確認）
+
+### 関連
+
+- #67 柱1本で判定・寄せる: develop_20260926_rev1 には入っているが develop に未反映（同じ種類の食い違い）
+- #64 【一覧】大会後の対応方針を決める
+
 ## 【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）
 
 元の Issue: https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26 時点）／原本: sorot_spike の `Docs/parameters_matrix.md`（ブランチ `develop_20260925`）
