@@ -1,0 +1,400 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CS大会までの不具合整理</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#f5f6f2; --paper:#ffffff; --ink:#23272b; --sub:#5b6158; --line:#dcdfd6;
+  --field:#3AA967; --fieldsoft:#e4f2e8;
+  --do:#1f6b45; --dosoft:#e2f1e7; --dont:#7a7f86; --dontsoft:#eceef0;
+  --red:#D62027; --blue:#0A5FA8; --yellow:#caa600;
+  --pri:#b3261e; --prisoft:#fbe7e5;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#15181a; --paper:#1d2124; --ink:#e7e9e4; --sub:#a4aaa1; --line:#33383b;
+  --fieldsoft:#1f3326; --do:#7fd3a2; --dosoft:#1d3527; --dont:#a3a9b0; --dontsoft:#262a2e;
+  --pri:#ff8a80; --prisoft:#3a1f1d; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#15181a; --paper:#1d2124; --ink:#e7e9e4; --sub:#a4aaa1; --line:#33383b;
+  --fieldsoft:#1f3326; --do:#7fd3a2; --dosoft:#1d3527; --dont:#a3a9b0; --dontsoft:#262a2e;
+  --pri:#ff8a80; --prisoft:#3a1f1d; color-scheme:dark;}
+body{background:var(--bg);color:var(--ink);font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",sans-serif;font-size:15px;line-height:1.75}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+h1,h2,h3{font-family:"Zen Kaku Gothic New","Hiragino Sans",sans-serif;text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:30px;font-weight:900;letter-spacing:.01em}
+h2{font-size:21px;font-weight:900;margin-top:44px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+h3{font-size:16px;font-weight:700;margin-top:26px;display:flex;gap:10px;align-items:center}
+p{margin:.5em 0;max-width:68ch}
+a{color:inherit;text-decoration-color:var(--sub);text-underline-offset:3px}
+.mono,.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.lede{color:var(--sub);margin-top:6px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:20px}
+.rule{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.rule b{display:block;font-size:12px;letter-spacing:.08em;color:var(--sub);font-weight:700}
+.tally{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;white-space:nowrap}
+.chip.do{background:var(--dosoft);color:var(--do)}
+.chip.dont{background:var(--dontsoft);color:var(--dont)}
+.chip.pri{background:var(--prisoft);color:var(--pri)}
+.mapgrid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:24px;margin-top:18px;align-items:start}
+@media (max-width:760px){.mapgrid{grid-template-columns:1fr}}
+.mapbox{max-width:380px;width:100%}
+.mapbox svg{width:100%;height:auto;display:block;border-radius:14px}
+.legend{display:grid;gap:8px}
+.lg{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.pin{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px}
+.lg .t{font-weight:700}
+.lg .c{font-size:13px;color:var(--sub)}
+.items{display:grid;gap:10px;margin-top:10px}
+.it{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:64px 1fr;gap:4px 14px}
+.it .no{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:15px;padding-top:1px}
+.it .no a{text-decoration:none}
+.it .ti{font-weight:700}
+.it .body{grid-column:2;font-size:14px}
+.it .body p{margin:.25em 0}
+.it .meta{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:4px;padding:0 7px;color:var(--sub);white-space:nowrap}
+.tag.rb{border-color:var(--pri);color:var(--pri)}
+.it.p1{border-left:4px solid var(--pri)}
+.it.dont{background:var(--dontsoft)}
+.it.dont .ti{color:var(--ink)}
+@media (max-width:520px){.it{grid-template-columns:1fr}.it .body,.it .meta{grid-column:1}}
+.k{font-size:12px;letter-spacing:.06em;color:var(--sub);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tw{overflow-x:auto;margin-top:10px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--sub);letter-spacing:.04em}
+footer{margin-top:48px;color:var(--sub);font-size:13px}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="k">ET_2026_REHEARSAL の open issue 37件（2026-09-29 時点）</div>
+  <h1>CS大会までの不具合整理</h1>
+  <p class="lede">コースのどこで起きるかで並べ、CS大会までに対応するものと、しないものに分けた。分け方の決まりは下の3つ。</p>
+  <div class="rules">
+    <div class="rule"><b>安定版</b><span class="mono">develop</span>（大会の版 ffe75be 以降）。ここで起きる不具合が対応の対象</div>
+    <div class="rule"><b>開発版</b><span class="mono">develop_20260925</span> と、そこから作った <span class="mono">develop_20260926_rev1</span>。開発版だけで起きる不具合は、原則対応しない</div>
+    <div class="rule"><b>対応するものの優先</b>「最優先」は、安定版で点を落としている原因か、作り直し不要で短時間に直せるもの</div>
+  </div>
+  <div class="tally">
+    <span class="chip pri">最優先 6件</span>
+    <span class="chip do">対応する 計19件</span>
+    <span class="chip dont">対応しない 15件</span>
+    <span class="chip dont">一覧・資料 3件（#64 #47 #19）</span>
+  </div>
+</header>
+
+<h2>コースのどこで起きるか</h2>
+<div class="mapgrid">
+  <div class="mapbox">
+    <svg viewBox="0 0 600 800" role="img" aria-label="Lコースの地図に、不具合の起きる場所を①〜⑤で示した図">
+
+          <defs><clipPath id="mapclip"><rect x="0" y="0" width="600" height="800" rx="24" ry="24"/></clipPath></defs>
+          <g clip-path="url(#mapclip)">
+          <rect width="600" height="800" fill="#3AA967"/>
+          <rect x="34" y="378" width="540" height="416" fill="#ffffff"/>
+
+          <path d="M548,-40 V175 C548,235 505,263 460,263 C415,263 372,235 372,175 V112
+                   C372,82 347,55 317,55 H250 C205,55 192,120 180,190 C166,272 96,296 72,390
+                   V700 C72,742 92,752 130,752 H490 V470"
+                fill="none" stroke="#ffffff" stroke-width="92" stroke-linejoin="round"/>
+          <path d="M548,-40 V175 C548,235 505,263 460,263 C415,263 372,235 372,175 V112
+                   C372,82 347,55 317,55 H250 C205,55 192,120 180,190 C166,272 96,296 72,390
+                   V700 C72,742 92,752 130,752 H490 V470"
+                fill="none" stroke="#3E382F" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M72,694 V774" fill="none" stroke="#3E382F" stroke-width="7" stroke-linecap="round"/>
+          <path d="M200,444 V726" fill="none" stroke="#3E382F" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="200" cy="498" r="11" fill="#0A5FA8"/>
+          <circle cx="200" cy="554" r="11" fill="#D62027"/>
+          <circle cx="200" cy="608" r="11" fill="#F2D024"/>
+          <circle cx="200" cy="662" r="11" fill="#17A34A"/>
+          <g fill="#0A76C8"><rect x="486" y="492" width="9" height="22"/><rect x="486" y="550" width="9" height="22"/><rect x="486" y="608" width="9" height="22"/><rect x="486" y="664" width="9" height="22"/></g>
+
+          <!-- スタート -->
+          <rect x="498" y="4" width="27" height="72" rx="5" fill="#F4A8C0" stroke="#3E382F" stroke-width="1"/>
+          <text x="511" y="44" font-size="19" font-weight="800" fill="#3E382F" text-anchor="middle" transform="rotate(-90 511 44)">START</text>
+          <polygon points="499,79 524,79 511.5,98" fill="#D62027"/>
+          
+
+          <!-- チェックポイント -->
+          <g stroke="#D62027" stroke-width="5">
+            <line x1="308" y1="11" x2="308" y2="45"/><line x1="308" y1="65" x2="308" y2="99"/>
+            <line x1="136" y1="196" x2="170" y2="196"/><line x1="190" y1="196" x2="224" y2="196"/>
+            <line x1="26" y1="364" x2="62" y2="364"/><line x1="82" y1="364" x2="118" y2="364"/>
+          </g>
+          <g fill="#F2D024" stroke="#3E382F" stroke-width="1">
+            <polygon points="304,8 304,30 286,19"/><polygon points="304,80 304,102 286,91"/>
+            <polygon points="142,203 164,203 153,221"/><polygon points="196,203 218,203 207,221"/>
+            <polygon points="33,342 55,342 44,360"/><polygon points="89,342 111,342 100,360"/>
+          </g>
+
+          <!-- LAPゲート -->
+          <rect x="10" y="550" width="26" height="70" rx="5" fill="#F4A8C0" stroke="#3E382F" stroke-width="1"/>
+          <text x="23" y="590" font-size="19" font-weight="800" fill="#3E382F" text-anchor="middle" transform="rotate(-90 23 590)">LAP</text>
+          <g stroke="#D62027" stroke-width="5">
+            <line x1="38" y1="586" x2="62" y2="586"/><line x1="82" y1="586" x2="118" y2="586"/>
+          </g>
+          <g fill="#E58A1A" stroke="#3E382F" stroke-width="1">
+            <polygon points="38,564 60,564 49,582"/><polygon points="89,564 111,564 100,582"/>
+          </g>
+
+          <!-- 土俵 -->
+          <circle cx="146" cy="432" r="41" fill="none" stroke="#9A9082" stroke-width="4"/>
+
+          <!-- ゲートの立つ場所 -->
+          <g fill="#D8D8D8">
+            <circle cx="232" cy="470" r="8"/><circle cx="286" cy="470" r="8"/><circle cx="342" cy="470" r="8"/><circle cx="396" cy="470" r="8"/><circle cx="452" cy="470" r="8"/>
+            <circle cx="232" cy="526" r="8"/><circle cx="286" cy="526" r="8"/><circle cx="342" cy="526" r="8"/><circle cx="396" cy="526" r="8"/><circle cx="452" cy="526" r="8"/>
+            <circle cx="232" cy="582" r="8"/><circle cx="286" cy="582" r="8"/><circle cx="342" cy="582" r="8"/><circle cx="396" cy="582" r="8"/><circle cx="452" cy="582" r="8"/>
+            <circle cx="232" cy="640" r="8"/><circle cx="286" cy="640" r="8"/><circle cx="342" cy="640" r="8"/><circle cx="396" cy="640" r="8"/><circle cx="452" cy="640" r="8"/>
+            <circle cx="232" cy="696" r="8"/><circle cx="286" cy="696" r="8"/><circle cx="342" cy="696" r="8"/><circle cx="396" cy="696" r="8"/><circle cx="452" cy="696" r="8"/>
+          </g>
+          <!-- 床の二次元コード -->
+          <g fill="#ffffff" stroke="#5A5A5A" stroke-width="1.4">
+            <rect x="252" y="492" width="14" height="14"/><rect x="308" y="492" width="14" height="14"/><rect x="364" y="492" width="14" height="14"/><rect x="418" y="492" width="14" height="14"/>
+            <rect x="252" y="548" width="14" height="14"/><rect x="308" y="548" width="14" height="14"/><rect x="364" y="548" width="14" height="14"/><rect x="418" y="548" width="14" height="14"/>
+            <rect x="252" y="604" width="14" height="14"/><rect x="308" y="604" width="14" height="14"/><rect x="364" y="604" width="14" height="14"/><rect x="418" y="604" width="14" height="14"/>
+            <rect x="252" y="662" width="14" height="14"/><rect x="308" y="662" width="14" height="14"/><rect x="364" y="662" width="14" height="14"/><rect x="418" y="662" width="14" height="14"/>
+          </g>
+          <g fill="#4A443A">
+            <rect x="254" y="494" width="4" height="4"/><rect x="310" y="494" width="4" height="4"/><rect x="366" y="494" width="4" height="4"/><rect x="420" y="494" width="4" height="4"/>
+            <rect x="254" y="550" width="4" height="4"/><rect x="310" y="550" width="4" height="4"/><rect x="366" y="550" width="4" height="4"/><rect x="420" y="550" width="4" height="4"/>
+            <rect x="254" y="606" width="4" height="4"/><rect x="310" y="606" width="4" height="4"/><rect x="366" y="606" width="4" height="4"/><rect x="420" y="606" width="4" height="4"/>
+            <rect x="254" y="664" width="4" height="4"/><rect x="310" y="664" width="4" height="4"/><rect x="366" y="664" width="4" height="4"/><rect x="420" y="664" width="4" height="4"/>
+            <rect x="262" y="502" width="4" height="4"/><rect x="318" y="502" width="4" height="4"/><rect x="374" y="502" width="4" height="4"/><rect x="428" y="502" width="4" height="4"/>
+            <rect x="262" y="558" width="4" height="4"/><rect x="318" y="558" width="4" height="4"/><rect x="374" y="558" width="4" height="4"/><rect x="428" y="558" width="4" height="4"/>
+            <rect x="262" y="614" width="4" height="4"/><rect x="318" y="614" width="4" height="4"/><rect x="374" y="614" width="4" height="4"/><rect x="428" y="614" width="4" height="4"/>
+            <rect x="262" y="672" width="4" height="4"/><rect x="318" y="672" width="4" height="4"/><rect x="374" y="672" width="4" height="4"/><rect x="428" y="672" width="4" height="4"/>
+          </g>
+
+          <!-- 色のエリア -->
+          <g stroke="#3E382F" stroke-width="1.6">
+            <rect x="520" y="488" width="52" height="40" rx="5" fill="#D62027"/>
+            <rect x="520" y="552" width="52" height="42" rx="5" fill="#0A5FA8"/>
+            <rect x="520" y="618" width="52" height="40" rx="5" fill="#F2D024"/>
+          </g>
+
+          <!-- ヒントカード -->
+          <!-- ヒントカード1・2（5cm角の二次元コード）の設置位置 -->
+          <g fill="#fff" stroke="#3E382F" stroke-width="3">
+            <rect x="191" y="764" width="20" height="20" rx="2"/><rect x="532" y="698" width="20" height="20" rx="2"/>
+          </g>
+
+          <!-- ガレージ -->
+          <rect x="40" y="712" width="64" height="80" rx="6" fill="none" stroke="#9A9082" stroke-width="4"/>
+
+          <!-- 目印バッジ -->
+          <g font-weight="800" text-anchor="middle" fill="#fff" font-size="24">
+            <circle cx="466" cy="40" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="466" y="49">S</text>
+            <circle cx="308" cy="142" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="308" y="151">C</text>
+            <circle cx="253" cy="214" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="253" y="223">C</text>
+            <circle cx="150" cy="330" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="150" y="339">C</text>
+            <circle cx="150" cy="586" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="150" y="595">L</text>
+            <circle cx="72" cy="752" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="72" y="761">G</text>
+            <circle cx="146" cy="432" r="21" fill="#C8102E" stroke="#fff" stroke-width="2.5"/><text x="146" y="441" font-size="26">2</text>
+            <circle cx="546" cy="452" r="21" fill="#C8102E" stroke="#fff" stroke-width="2.5"/><text x="546" y="461" font-size="26">3</text>
+            <circle cx="342" cy="582" r="21" fill="#C8102E" stroke="#fff" stroke-width="2.5"/><text x="342" y="591" font-size="26">4</text>
+          </g>
+          <text x="18" y="38" font-size="30" font-weight="800" fill="#ffffff">L コース</text>
+          </g>
+        
+      <g font-family="JetBrains Mono,monospace" font-weight="700" font-size="20" text-anchor="middle">
+        <g><circle cx="420" cy="132" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="420" y="139" fill="#fff">1</text></g>
+        <g><circle cx="570" cy="742" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="570" y="749" fill="#fff">2</text></g>
+        <g><circle cx="505" cy="468" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="505" y="475" fill="#fff">3</text></g>
+        <g><circle cx="474" cy="548" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="474" y="555" fill="#fff">4</text></g>
+        <g><circle cx="342" cy="728" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="342" y="735" fill="#fff">5</text></g>
+      </g>
+    </svg>
+  </div>
+  <div class="legend">
+    <div class="lg"><div class="pin">1</div><div><div class="t">スタート〜LAPゲート</div><div class="c">走行タイム（1秒縮めると1点）。対応する 1件／しない 3件</div></div></div>
+    <div class="lg"><div class="pin">2</div><div><div class="t">ヒントカード1・2</div><div class="c">Lと Rでシナリオの値が食い違う。対応する 1件</div></div></div>
+    <div class="lg"><div class="pin">3</div><div><div class="t">ボトルデリバリー（赤・青・黄のエリア）</div><div class="c">赤ルートでハブが落ちた。対応する 1件（赤の運び終わりの向きは④の #59）</div></div></div>
+    <div class="lg"><div class="pin">4</div><div><div class="t">ETラリーの入口（29/2 で止まる所）</div><div class="c">ここで向きが 5〜10° ずれると、1周目のゲートまで持ち越す。対応する 5件／しない 7件</div></div></div>
+    <div class="lg"><div class="pin">5</div><div><div class="t">ETラリーのゲート（格子）</div><div class="c">横に 50〜110mm ずれて柱に当たる。PC の経路の直し。対応する 8件／しない 4件</div></div></div>
+    <div class="lg"><div class="pin" style="background:var(--sub)">・</div><div><div class="t">コースの外（通信・記録）</div><div class="c">Bluetooth・母艦の設定・後から追う記録。対応する 3件／しない 1件</div></div></div>
+  </div>
+</div>
+
+<h2>CS大会までに対応する（19件）</h2>
+<p>赤い線が最優先。「作り直し」は走行体で <span class="mono">make</span> が要るか。</p>
+
+<h3><span class="pin">4</span>ETラリーの入口：向きを揃えてから走り出す</h3>
+<div class="items">
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a></div><div class="ti">入口（29/2）で止まる向きを、運んだボトルの色によらず揃える</div>
+    <div class="body"><p>赤を運んだ回だけ入口の向きが +4〜+8° ずれ、10回中8回は打ち直しの上限（5°）を超えて見送っている。赤の運び終わりだけ「白を見るまで右旋回」の古いやり方が残っているため。<b>ボトルの色はランダムなので、本番でも起きる。</b></p>
+    <p>対応：赤の 21/11〜21/12 を黄・青と同じ角度だけの旋回にする（または 21/12 の SCR を詰める）。各色3走行で 29/2 の値を見る。</p></div>
+    <div class="meta"><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span><span class="tag">#54 の本命</span></div></div>
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a></div><div class="ti">カメラの俯角を測り直し、走行ごとに確かめる</div>
+    <div class="body"><p>会場と本社で俯角が約3°違っていた（設定は 21.0° 固定）。2〜3° ずれると、黒線から測る向きの符号が逆になる回があり、ゲートの距離・横位置も十数%狂う。柱に当たると動く。</p>
+    <p>対応：本番の機体の俯角を測り直す。走行ごとに、柱の間隔（芯々 254mm）が合っているかを集計で見る。</p></div>
+    <div class="meta"><span class="tag">校正ファイル</span><span class="tag">作り直し不要</span></div></div>
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a></div><div class="ti">床のコード（floor_code）で測った向きの符号が逆の疑いを、確かめる</div>
+    <div class="body"><p>開発版で起きた件だが、<b>安定版の custom_Left.json も 29/2 で同じ測り方（heading_fix.py）を使っている。</b>符号が逆なら、入口の打ち直しが毎回ずれを増やす。</p>
+    <p>対応：確かめるだけ。同じ画像を floor_code と目印（markers）にかけ、符号が揃うかを見る。逆なら 29/2 の打ち直しを止める。</p></div>
+    <div class="meta"><span class="tag">Python（確認のみ）</span><span class="tag">作り直し不要</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a></div><div class="ti">ETラリーの出来がボトルの色で変わる（親）</div>
+    <div class="body"><p>分析の本体。対応は #59・#60・#61・#62 に切り出してある。#59 を入れて各色3走行が揃えば閉じる。</p></div>
+    <div class="meta"><span class="tag">まとめ役</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a></div><div class="ti">10°を超えた向きのずれを捨てる前に、床のコードで裏を取るか</div>
+    <div class="body"><p>本当に 10° 回っていたのに、測り間違いとして捨てていた回がある。上限は C++ に2か所あり、片方だけ広げると「当てた」と出て何も起きない。#59 で入口のずれが減れば、10° を超える回そのものが減る。</p>
+    <p>対応：#59 の結果を見てから決める。先に #76 の符号の確認が要る。</p></div>
+    <div class="meta"><span class="tag">C++</span><span class="tag rb">作り直し</span><span class="tag">#59 の後</span></div></div>
+</div>
+
+<h3><span class="pin">5</span>ETラリーのゲート：経路と当たり判定</h3>
+<div class="items">
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/65">#65</a></div><div class="ti">PC の経路計算の車体寸法を実物に合わせる</div>
+    <div class="body"><p>PC は半幅 60mm・前端 70mm で計算しているが、実物は 67.5mm・80mm（幅 135mm）。足に近づく判定が片側 7.5mm 甘く、ゲート直後の旋回は足先まで +13mm しか残らない。#38（お尻が当たる）の一因。</p>
+    <p>対応：PC-System の定数3つを直し、全配置で経路が作れるかを確かめる。</p></div>
+    <div class="meta"><span class="tag">PC-System</span><span class="tag">走行体は変えない</span></div></div>
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a></div><div class="ti">【方針】横ずれ（位置）を直す仕組みを入れるか</div>
+    <div class="body"><p>安定版では向きの補正しか動いておらず、横ずれを直す仕組みは1つも動いていない。ゲートで通れる横ずれは片側 47.5mm。1周目は 50〜110mm ずれて当たる（#71 の記録）。</p>
+    <p>候補：PC の助走（#68）、ゲートの行を遅くする（PC-System main-develop に依頼中）、寄せ（<span class="mono">gate_steer.txt</span>。安定版は 0）。<b>CS大会までに1つ決める。</b>寄せだけでは 49mm までしか直せない。</p></div>
+    <div class="meta"><span class="tag">判断</span><span class="tag">PC・つまみ</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></div><div class="ti">PC：ゲートの手前に助走を取る（実装・全配置の検証済み）</div>
+    <div class="body"><p>今の経路は6本とも旋回の直後にゲートを通り、手前の直線が 125〜364mm しかない。これでは柱を見て寄せる時間が無い。助走 617mm で直せる横ずれは約 35mm。60秒の上限つきで、取れないゲートは今までどおり。</p>
+    <p>対応：#63 で入れると決めたら取り込む。走行体は変えない。</p></div>
+    <div class="meta"><span class="tag">PC-System</span><span class="tag">#63 の候補</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></div><div class="ti">PC：最後の GATE_PASS_EXTRA（+25mm）が吸収されずに残る</div>
+    <div class="body"><p>ゲート通過の着地点に足した 25mm は、後の同じ軸の直進で打ち消す作り。最後の1回だけ打ち消す直進が無く、x が約 +26mm ずれたまま終わる。</p></div>
+    <div class="meta"><span class="tag">PC-System</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></div><div class="ti">その場旋回の KP が PC（2）と走行体の手引き（0）で逆</div>
+    <div class="body"><p>KP は旋回の行では「押し直しの許容[度]」。9/22 以降の走行はすべて KP 2。手引きの「押し直すと悪くなる」は 9/14 の布での結果。どちらが正しいか、同じ条件で比べて決める。</p></div>
+    <div class="meta"><span class="tag">判断</span><span class="tag">PC の値</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></div><div class="ti">赤と黄が上下に並ぶ配置で、赤を突き抜けると前端が黄の線を越える（#23）</div>
+    <div class="body"><p>480配置すべてで、赤を通った後に車体の前端が黄の線を越え、後退で戻る。これが「赤の後に黄を通過した」とみなされるなら反則になる。</p>
+    <p>対応：規約の解釈を運営に確かめる。みなされるなら PC の着地点を手前にする。</p></div>
+    <div class="meta"><span class="tag">規約の確認</span><span class="tag">#23 と一緒に閉じる</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></div><div class="ti">旋回時、お尻がゲートに当たる</div>
+    <div class="body"><p>9/25 に turn_drift を 0 にした後も起きているかを確かめ、起きていなければ閉じる。残るなら #65 で直す。</p></div>
+    <div class="meta"><span class="tag">確認して閉じる</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></div><div class="ti">ペットボトルに当たる</div>
+    <div class="body"><p>本文が経路図1枚だけで、どのボトルに経路のどこで当たったかが分からない。書き足してから分類し直す。</p></div>
+    <div class="meta"><span class="tag">情報不足</span></div></div>
+</div>
+
+<h3><span class="pin">3</span>ボトルデリバリー</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></div><div class="ti">赤ルート（SNO 21）でハブがリセット／asp が丸ごと止まる</div>
+    <div class="body"><p>9/26 に2回。起きたのは開発版の走行だが、ハブや電源の話で、安定版でも同じ区間を走る。原因は分かっていない。</p>
+    <p>対応：コードは直さない。止まったとき、ハブの電源を切る前に gdb で止まった場所を取る手順と、走る前の電池の確認を、現場の手順に入れる。</p></div>
+    <div class="meta"><span class="tag">手順のみ</span></div></div>
+</div>
+
+<h3><span class="pin">2</span>ヒントカード</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></div><div class="ti">custom_Left.json と custom_Right.json に、左右反転でない違いがある</div>
+    <div class="body"><p>20/7 の SCV（読めている必要のある枚数）が L=2・R=1 で、R はヒントカード2を読めなくても先へ進む。21/12・22/9 の旋回角が左右で揃っていない（-100 と 95、-90 と 95）。止まる時間も 8000 と 2000 で大きく違う。</p>
+    <p>対応：意図した違いか、合わせ忘れかを確かめる。Rコースを本番で走る可能性があるなら早めに。</p></div>
+    <div class="meta"><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span></div></div>
+</div>
+
+<h3><span class="pin">1</span>スタート〜LAPゲート</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a></div><div class="ti">走り出しを詰める（規約確認済み）</div>
+    <div class="body"><p>計時は合図から始まる。今は「ボタンを離した瞬間」に走り出すので、押してから離すまでが丸ごとタイムに入る。スタートエリアの一番前に置く手順も残す。</p>
+    <p>対応：置き方と開始の音の待ち（100ms）はすぐできる。「押した瞬間に走り出す」はフライング（-35点）の危険があるので、スターターの手順と合わせて決める。</p></div>
+    <div class="meta"><span class="tag">手順・C++</span><span class="tag">1秒＝1点</span></div></div>
+</div>
+
+<h3><span class="pin" style="background:var(--sub)">・</span>コースの外：通信と記録</h3>
+<div class="items">
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a></div><div class="ti">母艦の Bluetooth／イーサネットのサブネットマスクが /16</div>
+    <div class="body"><p>LAN ケーブルを挿した瞬間に、走行体宛の通信がイーサネット側へ吸われて消える恐れがある。PC との通信が切れると ETラリーの経路が届かない。</p>
+    <p>対応：Windows の設定で Bluetooth を /24 にし、イーサネットの手動 IP を外す。5分で済む。</p></div>
+    <div class="meta"><span class="tag">母艦の設定</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></div><div class="ti">走行体の Bluetooth が hardware error で止まる</div>
+    <div class="body"><p>起動から約25分で起き、再起動しないと戻らない。原因は不明。</p>
+    <p>対応：本番前に再起動する手順を入れる。journal を残す設定（/var/log/journal）にして、次に起きたとき追えるようにする。</p></div>
+    <div class="meta"><span class="tag">手順・設定</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a></div><div class="ti">後から追えない記録を足す（入口の画像・旋回の時間切れ）</div>
+    <div class="body"><p>入口（29/2）の画像が毎回上書きされ、止まった位置を後から測れない。旋回が時間切れで終わったのか角度で終わったのかもログに出ない。#59・#60 の確認に要る。</p></div>
+    <div class="meta"><span class="tag">Python・C++</span><span class="tag rb">作り直し（旋回のログ）</span></div></div>
+</div>
+
+<h2>CS大会までに対応しない（15件）</h2>
+<p>開発版だけで起きるもの、作る量に対して危険が大きいもの、情報が足りないもの。閉じるか、CS大会の後に回す。</p>
+
+<h3><span class="pin">4</span>開発版の向きの打ち直し（安定版には入っていない）</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a></div><div class="ti">床のコードの打ち直しが収束しない</div>
+    <div class="body"><p>打ち直すたびに、次の測りで同じ量をまた打ち直す作り。起きるのは開発版で <span class="mono">heading_fix.txt=1</span> にしたときだけ。安定版は経路の行で使っていない。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/78">#78</a></div><div class="ti">その場の打ち直し（615c804）と上限15°（49e6331）を残すか</div>
+    <div class="body"><p>9/26 の実機で悪化した。どちらも開発版にしか入っていない。開発版から外すかどうかは CS大会の後に決める。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></div><div class="ti">床のコードで打ち直すと、ずれが育つ</div>
+    <div class="body"><p>#76（符号）と #77（収束しない）に分けて書き直されたので、重複として閉じる。</p></div>
+    <div class="meta"><span class="tag">重複（#76・#77）</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></div><div class="ti">9/26 10:35 に6本すべてのゲートに当たった</div>
+    <div class="body"><p>開発版の走行。原因は #76・#77 の打ち直しとみている。経路が中点を通っていることは確認済み（記録として残す）。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a></div><div class="ti">経路の前（29/1）で測った向きが 3° までしか当たらない</div>
+    <div class="body"><p>29/1 の測る行は開発版（0cf2e89）にしか無い。安定版の入口は #59 で揃える。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></div><div class="ti">develop に 9/26 rev1 で効いた直しが入っていない</div>
+    <div class="body"><p>開発版の直しを安定版へ持ち込む話なので、原則しない。例外は 29/2 の heading_fix.py で、#76 の確認で符号が逆と分かったら安定版でも止める。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span><span class="tag">#76 次第</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></div><div class="ti">1周目の最初のゲートで毎回 50〜110mm 横にずれる</div>
+    <div class="body"><p>記録は開発版の走行。中身（入口の向き・横ずれ）は #54・#59・#63 と同じなので、そちらに寄せて閉じる。</p></div>
+    <div class="meta"><span class="tag">#54・#63 へ統合</span></div></div>
+</div>
+
+<h3><span class="pin">5</span>ゲートの寄せ・避け（作る量と危険が大きい）</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></div><div class="ti">柱が1本しか見えなくても判定し、寄せる</div>
+    <div class="body"><p>開発版にだけ入っている機能。自己位置が 127mm 以上ずれると左右を取り違える。#63 で「寄せを入れる」と決めたら、そのときに見直す。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span><span class="tag">#63 次第</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></div><div class="ti">走行体がゲートの手前で止まり、横へずれて入り直す</div>
+    <div class="body"><p>寄せの 49mm の上限が無くなる、いちばん効く案。ただし行を挿し込むと後ろの行番号が振り直され、経路の見張りが別の行を書き直す危険がある。作って確かめる量が大きいので、CS大会の後に回す。</p></div>
+    <div class="meta"><span class="tag">新機能</span><span class="tag">大会後</span></div></div>
+</div>
+
+<h3><span class="pin">1</span>LAPまでのタイム短縮（制御の中身を変える）</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a></div><div class="ti">カーブの行にあらかじめ旋回量を足す（見込み 0.4〜0.6秒）</div>
+    <div class="body"><p>ライントレース全体の制御式を変える（C++）。すべてのエッジ走行に効くので、確かめ直す範囲が広い。</p></div>
+    <div class="meta"><span class="tag rb">作り直し</span><span class="tag">大会後</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></div><div class="ti">10/6 を FWD 100 に戻す</div>
+    <div class="body"><p>#56 を入れてからの話。FWD 100 ではカーブを曲がりきれず外れた（#52）。</p></div>
+    <div class="meta"><span class="tag">#56 の後</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></div><div class="ti">LAPゲートまでの走行時間を縮める（親）</div>
+    <div class="body"><p>見取り図の issue。CS大会までに手を付けるのは #58 の置き方だけ。</p></div>
+    <div class="meta"><span class="tag">まとめ役</span></div></div>
+</div>
+
+<h3><span class="pin" style="background:var(--sub)">・</span>未決定・資料</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a></div><div class="ti">走行体の残り時間を PC へ渡す（I/F 未決定・動作未確認）</div>
+    <div class="body"><p>インターフェースが決まっておらず、3リポジトリに枝が散っている。無くても走れる。</p></div>
+    <div class="meta"><span class="tag">未決定</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></div><div class="ti">赤と黄が上下に並ぶとき、赤を通った後に黄を通ってはならない</div>
+    <div class="body"><p>タイトルだけのチェックリスト。確かめた結果は #66 にあるので、#66 で規約を確かめたら一緒に閉じる。</p></div>
+    <div class="meta"><span class="tag">#66 へ統合</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></div><div class="ti">ETラリーの縦方向の移動が長い?</div>
+    <div class="body"><p>「気がする」という記述だけ。turn_drift=1 のときの行き過ぎと同じとみられ、9/25 に 0 にした。確かめて閉じる。</p></div>
+    <div class="meta"><span class="tag">確認して閉じる</span></div></div>
+</div>
+
+<h2>重なっている issue</h2>
+<div class="tw"><table>
+  <thead><tr><th>残すほう</th><th>寄せて閉じてよいもの</th><th>理由</th></tr></thead>
+  <tbody>
+    <tr><td class="num">#76・#77</td><td class="num">#70</td><td>同じ件を2つに分けて書き直した</td></tr>
+    <tr><td class="num">#54・#59・#63</td><td class="num">#71・#19</td><td>1周目の横ずれと、その原因（入口の向き）</td></tr>
+    <tr><td class="num">#65</td><td class="num">#38（確認後）</td><td>お尻が当たるのは車体寸法と旋回の余裕の話</td></tr>
+    <tr><td class="num">#66</td><td class="num">#23</td><td>#66 が #23 を確かめた結果</td></tr>
+  </tbody>
+</table></div>
+
+<footer>
+  一覧の issue <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a>・パラメータ一覧 <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47">#47</a> は資料なので分類から外した。コースの地図はチームのパンフレットの Lコース図。数字は各 issue の本文から。
+</footer>
+</div>
+
+</body></html>
