@@ -226,7 +226,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </div>
 
 <h2>CS大会までに対応する（19件）</h2>
-<p class="k">版の区別: <span class="v s">安定版</span> 大会の版（develop ffe75be）の走行で起きた　<span class="v d">開発版</span> develop_20260925／rev1 でだけ起きた　<span class="v m">開発版の走行・安定版にも影響</span>　<span class="v n">版に依らない</span> コード・PC・手順の話　<span class="v u">版の記載なし</span></p>
+<p class="k">版の区別: <span class="v s">安定版</span> 大会の版（develop ffe75be）の走行で起きた　<span class="v d">開発版</span> develop_20260925／rev1 でだけ起きた　<span class="v m">開発版の走行・安定版にも影響</span>　<span class="v n">版に依らない</span> コード・PC・手順の話　<span class="v u">版を決められない</span>　<span class="v s">大会前の版</span> 9/25 の開発版より前</p>
 <p>赤い線が最優先。「作り直し」は走行体で <span class="mono">make</span> が要るか。</p>
 
 <h3><span class="pin">4</span>ETラリーの入口：向きを揃えてから走り出す</h3>
@@ -278,10 +278,10 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v d">開発版</span><span class="tag">規約の確認</span><span class="tag">#23 と一緒に閉じる</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></div><div class="ti">旋回時、お尻がゲートに当たる</div>
     <div class="body"><p>9/25 に turn_drift を 0 にした後も起きているかを確かめ、起きていなければ閉じる。残るなら #65 で直す。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">確認して閉じる</span></div></div>
+    <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></div><div class="ti">ペットボトルに当たる</div>
     <div class="body"><p>本文が経路図1枚だけで、どのボトルに経路のどこで当たったかが分からない。書き足してから分類し直す。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">情報不足</span></div></div>
+    <div class="meta"><span class="v u">版を決められない</span><span class="tag">情報不足</span></div></div>
 </div>
 
 <h3><span class="pin">3</span>ボトルデリバリー</h3>
@@ -289,7 +289,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></div><div class="ti">赤ルート（SNO 21）でハブがリセット／asp が丸ごと止まる</div>
     <div class="body"><p>9/26 に2回。起きたのは開発版の走行だが、ハブや電源の話で、安定版でも同じ区間を走る。原因は分かっていない。</p>
     <p>対応：コードは直さない。止まったとき、ハブの電源を切る前に gdb で止まった場所を取る手順と、走る前の電池の確認を、現場の手順に入れる。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">手順のみ</span></div></div>
+    <div class="meta"><span class="v m">開発版の走行・原因は版に依らない見込み</span><span class="tag">手順のみ</span></div></div>
 </div>
 
 <h3><span class="pin">2</span>ヒントカード</h3>
@@ -297,7 +297,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></div><div class="ti">custom_Left.json と custom_Right.json に、左右反転でない違いがある</div>
     <div class="body"><p>20/7 の SCV（読めている必要のある枚数）が L=2・R=1 で、R はヒントカード2を読めなくても先へ進む。21/12・22/9 の旋回角が左右で揃っていない（-100 と 95、-90 と 95）。止まる時間も 8000 と 2000 で大きく違う。</p>
     <p>対応：意図した違いか、合わせ忘れかを確かめる。Rコースを本番で走る可能性があるなら早めに。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span></div></div>
+    <div class="meta"><span class="v s">安定版</span><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span></div></div>
 </div>
 
 <h3><span class="pin">1</span>スタート〜LAPゲート</h3>
@@ -345,7 +345,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></div><div class="ti">develop に 9/26 rev1 で効いた直しが入っていない</div>
     <div class="body"><p>開発版の直しを安定版へ持ち込む話なので、原則しない。例外は 29/2 の heading_fix.py で、#76 の確認で符号が逆と分かったら安定版でも止める。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">開発版のみ</span><span class="tag">#76 次第</span></div></div>
+    <div class="meta"><span class="v n">版の比較の話</span><span class="tag">開発版のみ</span><span class="tag">#76 次第</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></div><div class="ti">1周目の最初のゲートで毎回 50〜110mm 横にずれる</div>
     <div class="body"><p>記録は開発版の走行。中身（入口の向き・横ずれ）は #54・#59・#63 と同じなので、そちらに寄せて閉じる。</p></div>
     <div class="meta"><span class="v m">開発版の走行・安定版でも起きる</span><span class="tag">#54・#63 へ統合</span></div></div>
@@ -381,10 +381,10 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v n">版に依らない</span><span class="tag">未決定</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></div><div class="ti">赤と黄が上下に並ぶとき、赤を通った後に黄を通ってはならない</div>
     <div class="body"><p>タイトルだけのチェックリスト。確かめた結果は #66 にあるので、#66 で規約を確かめたら一緒に閉じる。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">#66 へ統合</span></div></div>
+    <div class="meta"><span class="v s">大会前の版</span><span class="tag">#66 へ統合</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></div><div class="ti">ETラリーの縦方向の移動が長い?</div>
     <div class="body"><p>「気がする」という記述だけ。turn_drift=1 のときの行き過ぎと同じとみられ、9/25 に 0 にした。確かめて閉じる。</p></div>
-    <div class="meta"><span class="v u">版の記載なし</span><span class="tag">確認して閉じる</span></div></div>
+    <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
 </div>
 
 <h2>重なっている issue</h2>
@@ -470,9 +470,9 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </table></div>
 
 <h2>どの版で起きたか（安定版／開発版）</h2>
-<p class="k">issue 本文に書かれた走行の版から分類した。判断に迷うものは理由の欄に書いた。</p>
-<h3>安定版で起きた（develop ffe75be）（7件）</h3>
-<p class="k">大会の版の走行で確認したもの。対応の対象</p>
+<p class="k">issue 本文・起票日・git の履歴から分類した。9/26 の走行ログはこの Mac に無いため、その日の版は Issue 内の版の記載と、コミットが入っているブランチから決めた。</p>
+<h3>安定版で起きた（develop ffe75be・大会の版）（8件）</h3>
+<p class="k">大会の版の走行、または大会の版のファイルの問題。対応の対象</p>
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
 <tbody>
@@ -483,9 +483,21 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a></td><td>#54 の切り出し。本社 16:17 の 30/23 で +10.05° を捨てた</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a></td><td>#54 の切り出し。develop は gate_steer=0 で、働いたのは向き補正だけ（9/26〜27 の走行から）</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a></td><td>9/26 の走行は開発版（rev1）だが、安定版も 29/2 で同じ heading_fix.py を使っているので、符号が逆なら安定版でも起きる。確かめるだけ（最優先）</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></td><td>origin/develop（安定版）の custom_Left/Right.json の左右差。安定版のシナリオの問題</td></tr>
 </tbody>
 </table></div>
-<h3>開発版で起きた（develop_20260925／develop_20260926_rev1）（9件）</h3>
+<h3>大会前の版で起きた（9/25 の開発版より前）（4件）</h3>
+<p class="k">Issue の起票日が、開発版（develop_20260925）の分岐より前。開発版の事象ではない</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a></td><td>2026-09-16 に起票（9/30 に「回転に PID 制御を入れて改善」としてクローズ）。開発版（9/25 に分岐）より前なので、大会前の版の事象</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></td><td>2026-09-18 に起票。開発版より前。PC の経路の規約の話で、#66 で確かめた</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></td><td>2026-09-23 に起票。開発版より前の版の事象。#65 に関係</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></td><td>2026-09-25 20:26 に起票。turn_drift=1 の行き過ぎとみられる。turn_drift は 9/22 から有り、9/25 22:33 に 0 と決着。9/30 に「曖昧」でクローズ</td></tr>
+</tbody>
+</table></div>
+<h3>開発版で起きた（develop_20260925／develop_20260926_rev1）（10件）</h3>
 <p class="k">開発版の走行・機能だけで起きるもの。原則、対応しない</p>
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
@@ -499,6 +511,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></td><td>柱1本の判定は rev1 にだけ入っている機能。develop には未反映</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></td><td>PC の開発版（develop_20260925）の上で検証した提案</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></td><td>PC の開発版（develop_20260925 の 77009c1）で480配置を作って確かめた</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></td><td>9/26 10:58。同じ朝の 10:08・10:35・10:51 の走行はすべて rev1（a7f40e6・080d59c は rev1 にだけ有り、develop に無い）。ハブの USB 切断は版に依らない見込み</td></tr>
 </tbody>
 </table></div>
 <h3>版に依らない（コード・手順・PC の話）（11件）</h3>
@@ -519,19 +532,13 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></td><td>提案（まだ作っていない）</td></tr>
 </tbody>
 </table></div>
-<h3>版の記載がない／不具合そのものではない（8件）</h3>
-<p class="k">issue に走行した版が書かれていない。確認が要る</p>
+<h3>版を決められない／不具合そのものではない（2件）</h3>
+<p class="k">ログ・履歴でも版が決まらないもの、または版の比較の話</p>
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
 <tbody>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a></td><td>版の記載なし（古い issue）</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></td><td>版の記載なし。#66 で確かめ直した</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></td><td>版の記載なし（走行体の距離調整）。#65 に関係</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></td><td>版の記載なし（9/25 の turn_drift の行き過ぎとみられる）</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></td><td>版の記載なし（画像のみ）。情報が足りない</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></td><td>2026-09-26 に2回。赤ルート（21）のコードは版で差がないが、走行した版は書かれていない</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></td><td>develop と rev1 の差分を並べた issue。不具合そのものではない</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></td><td>develop の設定ファイルの左右差の確認。不具合の発生版は無関係</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></td><td>2026-09-26 16:13 に起票。本文は PC の経路図1枚だけで、走行した版の手がかりがない。9/26 のログはこの Mac に無い</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></td><td>develop と rev1 の差分を並べた issue。不具合の起きた版ではなく、版の食い違いの話</td></tr>
 </tbody>
 </table></div>
 
