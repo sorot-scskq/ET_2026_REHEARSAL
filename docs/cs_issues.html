@@ -392,6 +392,77 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   </tbody>
 </table></div>
 
+<h2>【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</h2>
+<p class="k">元の issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a></p>
+<p>大会（9/27）後に開いている issue を、<b>決めることごと</b>に並べた一覧。方針が決まったら、ここにチェックを入れて各 issue へ書く。</p>
+<h3>1. ETラリーの精度（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a> が中心）</h3>
+<p><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a> の分析（入口の向きが運んだボトルの色で約10°違う → 柱に触れて旋回が狂う → 補正が追いつかない）から、対応を性質ごとに分けた。</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th><th>変えるもの</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a> 入口（29/2）の向きを色によらずそろえる</td><td>赤の運び終わりを黄・青と同じやり方にするか、<code>SCR</code> を詰めるか</td><td><code>custom.json</code>（作り直し不要）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a> カメラの俯角を測り直す</td><td>本番の機体の俯角をいつ・どう確かめるか</td><td>カメラの取り付け・校正ファイル</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a> 後から追えない記録を足す</td><td>入口の画像を残す／旋回の時間切れをログに出す</td><td>Python・C++（<code>make</code>）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a> 10°を超えた向きのずれを捨てる前に裏を取るか</td><td>上限の扱い（C++ の上限が2か所ある）</td><td>C++（<code>make</code>）または Python</td></tr>
+<tr><td><b><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a> 横ずれを直す仕組みを入れるか</b></td><td><b>寄せ・柱1本の判定・PC の助走・経路の書き直しのどれを入れるか</b></td><td>走行体のつまみ・PC の経路</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a> 床のコード（<code>floor_code</code>）で向きを打ち直すと、ずれが育つ</td><td>符号が逆かを確かめるまで、床のコードでの打ち直しを止めたままにするか（9/26 は止めて走りが戻った）。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a> の裏取りに床のコードを使う前提にもなる</td><td>Python（作り直し不要）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a> 1周目の最初のゲートで毎回 50〜110mm 横にずれる</td><td>案1〜4（止まって横へ移る／次の旋回で取り返す／ゲートの行を遅くする／30/1〜30/2 で回る原因を調べる）のどれを進めるか。<b><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a> と重なる</b></td><td>PC の経路・Python</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a> 経路の前（29/1）で測った向きが 3° までしか当たらない</td><td>全量入れるか（C++）、測ったずれでその場旋回するか（シナリオ）</td><td>C++（<code>make</code>）または <code>custom.json</code></td></tr>
+</tbody>
+</table></div>
+<p>同じ根の issue（上が片付けば閉じられる見込み）:</p>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>状態</th><th>提案</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a> ETラリーの走行精度が悪い</td><td>まとめ役</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a>〜<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a> へ寄せて閉じるか決める</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a> 旋回時にお尻がゲートに当たる</td><td>9/25 に <code>turn_drift</code> を 0 にした</td><td>0 にしたあとも起きているかを確かめて閉じる</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a> 縦方向の移動が長い?</td><td>記述は「気がする」だけ</td><td><code>turn_drift = 1</code> のときの行き過ぎ（直進1本ごとに2〜3cm）と同じとみられる。確かめて閉じる</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a> ペットボトルにあたる</td><td>本文は PC の経路図1枚だけ（赤 15,25／青 11,12／黄 33,43）</td><td><b>どのボトルに、経路のどこで当たったかを書き足す</b></td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a> 赤と黄が上下に並ぶとき、赤を通ったあとに黄を通ってはならない</td><td>タイトルだけ</td><td>PC の経路の「駆け抜け」（隣り合う2本を一息に抜ける）がこの決まりに反していないか、PC 側で確かめる</td></tr>
+</tbody>
+</table></div>
+<h3>1b. 版とシナリオの整理</h3>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a> develop に 9/26 rev1 で効いた直しが入っていない</td><td>29/2 の <code>heading_fix.py</code> 削除・29/1 の測る行・<code>gate_steer</code>・<code>follow_plan</code> を develop に入れるか。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a> と同じ種類の食い違い</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a> <code>custom_Left.json</code> と <code>custom_Right.json</code> に左右反転でない違い</td><td>20/7 の <code>SCV</code> 2→1、21/12・22/9 の <code>SCR</code> などが意図したものか、合わせ忘れか</td></tr>
+</tbody>
+</table></div>
+<h3>1c. 走行体の安定性</h3>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a> 赤ルート（SNO 21）でハブがリセット／asp が丸ごと止まる（9/26 に2回）</td><td>次に起きたときに gdb で止まった場所を取る手順を、現場の手順に入れるか。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/46">#46</a>（押し続け）への対策とまとめるか</td></tr>
+</tbody>
+</table></div>
+<h3>2. LAP までの走行時間</h3>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a> LAPゲートまでの走行時間を縮める</td><td>どこまで詰めるか（今 14.1〜14.6 秒、下限 約12.7 秒）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a> カーブの行にあらかじめ旋回量を足す</td><td>入れるか</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a> 10/6 を FWD 100 に戻す</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a> のあとで</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a> ルールの確認（計時の起点・線から離れてよいか）</td><td>確認が先</td></tr>
+</tbody>
+</table></div>
+<h3>3. 通信（Bluetooth）</h3>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a> 走行体の Bluetooth が hardware error で止まる</td><td>原因が分かっていない。<b>journal を永続化</b>（<code>/var/log/journal</code>）して次に追えるようにするか。今は「切れたら再起動」</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a> 母艦のサブネットマスクが /16</td><td>Windows の設定で直す（Bluetooth を /24、イーサネットの手動 IP を外す）。誰がいつやるか</td></tr>
+</tbody>
+</table></div>
+<h3>4. 未確認・資料</h3>
+<div class="tw"><table>
+<thead><tr><th>issue</th><th>決めること</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a> 走行体の経過時間を PC へ渡す（動作未確認）</td><td>実機で動かしてマージするか（3リポジトリに <code>feature…issue15</code> の枝がある）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47">#47</a> 走行体のパラメータ一覧</td><td>資料。原本（<code>Docs/parameters_matrix.md</code>）を直したら更新する</td></tr>
+</tbody>
+</table></div>
+
 <h2>どの版で起きたか（安定版／開発版）</h2>
 <p class="k">issue 本文に書かれた走行の版から分類した。判断に迷うものは理由の欄に書いた。</p>
 <h3>安定版で起きた（develop ffe75be）（7件）</h3>
