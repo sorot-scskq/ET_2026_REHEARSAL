@@ -73,6 +73,12 @@ table{border-collapse:collapse;width:100%;font-size:14px}
 .tw{overflow-x:auto;margin-top:10px}
 th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
 th{font-size:12px;color:var(--sub);letter-spacing:.04em}
+.toc{margin:20px 0 4px;padding:12px 14px;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+.toc b{display:block;font-size:12px;letter-spacing:.06em;color:var(--sub);margin-bottom:8px}
+.toc ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 8px}
+.toc a{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink);text-decoration:none}
+.toc a:hover{border-color:var(--field);background:var(--fieldsoft)}
+html{scroll-behavior:smooth}h2[id]{scroll-margin-top:16px}
 footer{margin-top:48px;color:var(--sub);font-size:13px}
 </style>
 
@@ -93,8 +99,10 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <span class="chip dont">一覧・資料 3件（#64 #47 #19）</span>
   </div>
 </header>
+<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースの場所</a></li><li><a href="#do">対応する</a></li><li><a href="#dont">対応しない</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">大会後の方針（#64）</a></li><li><a href="#params">パラメータ一覧（#47）</a></li><li><a href="#ver">どの版で起きたか</a></li></ol></nav>
 
-<h2>コースのどこで起きるか</h2>
+
+<h2 id="course">コースのどこで起きるか</h2>
 <div class="mapgrid">
   <div class="mapbox">
     <svg viewBox="0 0 600 800" role="img" aria-label="Lコースの地図に、不具合の起きる場所を①〜⑤で示した図">
@@ -227,7 +235,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   </div>
 </div>
 
-<h2>CS大会までに対応する（19件）</h2>
+<h2 id="do">CS大会までに対応する（19件）</h2>
 <p class="k">版の区別: <span class="v s">安定版</span> 大会の版（develop ffe75be）の走行で起きた　<span class="v d">開発版</span> develop_20260925／rev1 でだけ起きた　<span class="v m">開発版の走行・安定版にも影響</span>　<span class="v n">版に依らない</span> コード・PC・手順の話　<span class="v u">版を決められない</span>　<span class="v s">大会前の版</span> 9/25 の開発版より前</p>
 <p>赤い線が最優先。「作り直し」は走行体で <span class="mono">make</span> が要るか。</p>
 
@@ -325,7 +333,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v s">安定版</span><span class="tag">Python・C++</span><span class="tag rb">作り直し（旋回のログ）</span></div></div>
 </div>
 
-<h2>CS大会までに対応しない（15件）</h2>
+<h2 id="dont">CS大会までに対応しない（15件）</h2>
 <p>開発版だけで起きるもの、作る量に対して危険が大きいもの、情報が足りないもの。閉じるか、CS大会の後に回す。</p>
 
 <h3><span class="pin">4</span>開発版の向きの打ち直し（安定版には入っていない）</h3>
@@ -389,7 +397,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
 </div>
 
-<h2>重なっている issue</h2>
+<h2 id="dup">重なっている issue</h2>
 <div class="tw"><table>
   <thead><tr><th>残すほう</th><th>寄せて閉じてよいもの</th><th>理由</th></tr></thead>
   <tbody>
@@ -400,7 +408,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   </tbody>
 </table></div>
 
-<h2>【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</h2>
+<h2 id="after">【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</h2>
 <p class="k">元の issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a></p>
 <p>大会（9/27）後に開いている issue を、<b>決めることごと</b>に並べた一覧。方針が決まったら、ここにチェックを入れて各 issue へ書く。</p>
 <h3>1. ETラリーの精度（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a> が中心）</h3>
@@ -471,7 +479,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </tbody>
 </table></div>
 
-<h2>【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</h2>
+<h2 id="params">【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</h2>
 <p>元の Issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26">https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26</a> 時点）／原本: sorot_spike の <code>Docs/parameters_matrix.md</code>（ブランチ <code>develop_20260925</code>）</p>
 <p>走行体のパラメータを、<b>どこを触ると何が変わるか</b>でまとめた資料。旋回でお尻がゲートに当たる件（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a>）の距離の話は <code>turn_drift</code> を参照。</p>
 <h3>先に：安定版と開発版でどこが違うか</h3>
@@ -615,7 +623,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <li><b>電池を替えたら測り直す量がある</b>（<code>STOP_LEAD_TIME</code>・<code>TURN_DRIFT_MM</code>）。</li>
 </ul>
 
-<h2>どの版で起きたか（安定版／開発版）</h2>
+<h2 id="ver">どの版で起きたか（安定版／開発版）</h2>
 <p class="k">issue 本文・起票日・git の履歴から分類した。9/26 の走行ログはこの Mac に無いため、その日の版は Issue 内の版の記載と、コミットが入っているブランチから決めた。</p>
 <h3>安定版で起きた（develop ffe75be・大会の版）（8件）</h3>
 <p class="k">大会の版の走行、または大会の版のファイルの問題。対応の対象</p>
