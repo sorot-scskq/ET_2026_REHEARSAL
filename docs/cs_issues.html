@@ -60,6 +60,7 @@ a{color:inherit;text-decoration-color:var(--sub);text-underline-offset:3px}
 .v.s{color:var(--do);border-color:var(--do);background:var(--dosoft)}
 .v.d{color:var(--dont);border-color:var(--dont);background:var(--dontsoft)}
 .v.m{color:var(--pri);border-color:var(--pri);background:var(--prisoft)}
+.v.cl{color:var(--sub);border-color:var(--sub);background:transparent;text-decoration:none}
 .v.n,.v.u{color:var(--sub);border-color:var(--line)}
 code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.88em;background:var(--dontsoft);border-radius:3px;padding:0 4px;word-break:break-word}
 ul{padding-left:1.3em;margin:8px 0}
@@ -99,7 +100,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <span class="chip dont">一覧・資料 3件（#64 #47 #19）</span>
   </div>
 </header>
-<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースの場所</a></li><li><a href="#params">パラメータ一覧（#47）</a></li><li><a href="#do">対応する</a></li><li><a href="#dont">対応しない</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">大会後の方針（#64）</a></li><li><a href="#d74">develop と rev1 の差（#74）</a></li><li><a href="#ver">どの版で起きたか</a></li></ol></nav>
+<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースの場所</a></li><li><a href="#params">パラメータ一覧（#47）</a></li><li><a href="#do">対応する</a></li><li><a href="#dont">対応しない</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">大会後の方針（#64）</a></li><li><a href="#d74">develop と rev1 の差（#74）</a></li><li><a href="#ver">どの版で起きたか</a></li></ol><p style="margin:10px 0 0;font-size:12px;color:var(--sub)"><span class="v cl">済</span> は、2026-10-01 時点でクローズ済みの issue（経緯の記録として残している）</p></nav>
 
 
 <h2 id="course">コースのどこで起きるか</h2>
@@ -420,16 +421,16 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="body"><p>今の経路は6本とも旋回の直後にゲートを通り、手前の直線が 125〜364mm しかない。これでは柱を見て寄せる時間が無い。助走 617mm で直せる横ずれは約 35mm。60秒の上限つきで、取れないゲートは今までどおり。</p>
     <p>対応：#63 で入れると決めたら取り込む。走行体は変えない。</p></div>
     <div class="meta"><span class="v d">開発版</span><span class="tag">PC-System</span><span class="tag">#63 の候補</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></div><div class="ti">PC：最後の GATE_PASS_EXTRA（+25mm）が吸収されずに残る</div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></div><div class="ti">最後のゲート通過の余裕 25mm が打ち消されず、ゴール手前で位置が約 26mm ずれる</div>
     <div class="body"><p>ゲート通過の着地点に足した 25mm は、後の同じ軸の直進で打ち消す作り。最後の1回だけ打ち消す直進が無く、x が約 +26mm ずれたまま終わる。</p></div>
     <div class="meta"><span class="v n">版に依らない</span><span class="tag">PC-System</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></div><div class="ti">その場旋回の KP が PC（2）と走行体の手引き（0）で逆</div>
     <div class="body"><p>KP は旋回の行では「押し直しの許容[度]」。9/22 以降の走行はすべて KP 2。手引きの「押し直すと悪くなる」は 9/14 の布での結果。どちらが正しいか、同じ条件で比べて決める。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">判断</span><span class="tag">PC の値</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">判断</span><span class="tag">PC の値</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></div><div class="ti">赤と黄が上下に並ぶ配置で、赤を突き抜けると前端が黄の線を越える（#23）</div>
     <div class="body"><p>480配置すべてで、赤を通った後に車体の前端が黄の線を越え、後退で戻る。これが「赤の後に黄を通過した」とみなされるなら反則になる。</p>
     <p>対応：規約の解釈を運営に確かめる。みなされるなら PC の着地点を手前にする。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">規約の確認</span><span class="tag">#23 と一緒に閉じる</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v d">開発版</span><span class="tag">規約の確認</span><span class="tag">#23 と一緒に閉じる</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></div><div class="ti">旋回時、お尻がゲートに当たる</div>
     <div class="body"><p>9/25 に turn_drift を 0 にした後も起きているかを確かめ、起きていなければ閉じる。残るなら #65 で直す。</p></div>
     <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
@@ -471,7 +472,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></div><div class="ti">走行体の Bluetooth が hardware error で止まる</div>
     <div class="body"><p>起動から約25分で起き、再起動しないと戻らない。原因は不明。</p>
     <p>対応：本番前に再起動する手順を入れる。journal を残す設定（/var/log/journal）にして、次に起きたとき追えるようにする。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">手順・設定</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">手順・設定</span></div></div>
   <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a></div><div class="ti">後から追えない記録を足す（入口の画像・旋回の時間切れ）</div>
     <div class="body"><p>入口（29/2）の画像が毎回上書きされ、止まった位置を後から測れない。旋回が時間切れで終わったのか角度で終わったのかもログに出ない。#59・#60 の確認に要る。</p></div>
     <div class="meta"><span class="v s">安定版</span><span class="tag">Python・C++</span><span class="tag rb">作り直し（旋回のログ）</span></div></div>
@@ -490,7 +491,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></div><div class="ti">床のコードで打ち直すと、ずれが育つ</div>
     <div class="body"><p>#76（符号）と #77（収束しない）に分けて書き直されたので、重複として閉じる。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">重複（#76・#77）</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v d">開発版</span><span class="tag">重複（#76・#77）</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></div><div class="ti">9/26 10:35 に6本すべてのゲートに当たった</div>
     <div class="body"><p>開発版の走行。原因は #76・#77 の打ち直しとみている。経路が中点を通っていることは確認済み（記録として残す）。</p></div>
     <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
@@ -502,7 +503,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v n">版の比較の話</span><span class="tag">開発版のみ</span><span class="tag">#76 次第</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></div><div class="ti">1周目の最初のゲートで毎回 50〜110mm 横にずれる</div>
     <div class="body"><p>記録は開発版の走行。中身（入口の向き・横ずれ）は #54・#59・#63 と同じなので、そちらに寄せて閉じる。</p></div>
-    <div class="meta"><span class="v m">開発版の走行・安定版でも起きる</span><span class="tag">#54・#63 へ統合</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v m">開発版の走行・安定版でも起きる</span><span class="tag">#54・#63 へ統合</span></div></div>
 </div>
 
 <h3><span class="pin">5</span>ゲートの寄せ・避け（作る量と危険が大きい）</h3>
@@ -522,7 +523,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v n">版に依らない</span><span class="tag rb">作り直し</span><span class="tag">大会後</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></div><div class="ti">10/6 を FWD 100 に戻す</div>
     <div class="body"><p>#56 を入れてからの話。FWD 100 ではカーブを曲がりきれず外れた（#52）。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">#56 の後</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">#56 の後</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></div><div class="ti">LAPゲートまでの走行時間を縮める（親）</div>
     <div class="body"><p>見取り図の issue。CS大会までに手を付けるのは #58 の置き方だけ。</p></div>
     <div class="meta"><span class="v n">版に依らない</span><span class="tag">まとめ役</span></div></div>
@@ -538,7 +539,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
     <div class="meta"><span class="v s">大会前の版</span><span class="tag">#66 へ統合</span></div></div>
   <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></div><div class="ti">ETラリーの縦方向の移動が長い?</div>
     <div class="body"><p>「気がする」という記述だけ。turn_drift=1 のときの行き過ぎと同じとみられ、9/25 に 0 にした。確かめて閉じる。</p></div>
-    <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
+    <div class="meta"><span class="v cl">クローズ済</span><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
 </div>
 
 <h2 id="dup">重なっている issue</h2>
@@ -546,7 +547,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
   <thead><tr><th>残すほう</th><th>寄せて閉じてよいもの</th><th>理由</th></tr></thead>
   <tbody>
     <tr><td class="num">#76・#77</td><td class="num">#70</td><td>同じ件を2つに分けて書き直した</td></tr>
-    <tr><td class="num">#54・#59・#63</td><td class="num">#71・#19</td><td>1周目の横ずれと、その原因（入口の向き）</td></tr>
+    <tr><td class="num">#54・#59・#63</td><td class="num">#71・#19<span class="v cl">済</span></td><td>1周目の横ずれと、その原因（入口の向き）</td></tr>
     <tr><td class="num">#65</td><td class="num">#38（確認後）</td><td>お尻が当たるのは車体寸法と旋回の余裕の話</td></tr>
     <tr><td class="num">#66</td><td class="num">#23</td><td>#66 が #23 を確かめた結果</td></tr>
   </tbody>
@@ -565,8 +566,8 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a> 後から追えない記録を足す</td><td>入口の画像を残す／旋回の時間切れをログに出す</td><td>Python・C++（<code>make</code>）</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a> 10°を超えた向きのずれを捨てる前に裏を取るか</td><td>上限の扱い（C++ の上限が2か所ある）</td><td>C++（<code>make</code>）または Python</td></tr>
 <tr><td><b><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a> 横ずれを直す仕組みを入れるか</b></td><td><b>寄せ・柱1本の判定・PC の助走・経路の書き直しのどれを入れるか</b></td><td>走行体のつまみ・PC の経路</td></tr>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a> 床のコード（<code>floor_code</code>）で向きを打ち直すと、ずれが育つ</td><td>符号が逆かを確かめるまで、床のコードでの打ち直しを止めたままにするか（9/26 は止めて走りが戻った）。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a> の裏取りに床のコードを使う前提にもなる</td><td>Python（作り直し不要）</td></tr>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a> 1周目の最初のゲートで毎回 50〜110mm 横にずれる</td><td>案1〜4（止まって横へ移る／次の旋回で取り返す／ゲートの行を遅くする／30/1〜30/2 で回る原因を調べる）のどれを進めるか。<b><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a> と重なる</b></td><td>PC の経路・Python</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a> <span class="v cl">済</span> 床のコード（<code>floor_code</code>）で向きを打ち直すと、ずれが育つ</td><td>符号が逆かを確かめるまで、床のコードでの打ち直しを止めたままにするか（9/26 は止めて走りが戻った）。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a> の裏取りに床のコードを使う前提にもなる</td><td>Python（作り直し不要）</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a> <span class="v cl">済</span> 1周目の最初のゲートで毎回 50〜110mm 横にずれる</td><td>案1〜4（止まって横へ移る／次の旋回で取り返す／ゲートの行を遅くする／30/1〜30/2 で回る原因を調べる）のどれを進めるか。<b><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a> と重なる</b></td><td>PC の経路・Python</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a> 経路の前（29/1）で測った向きが 3° までしか当たらない</td><td>全量入れるか（C++）、測ったずれでその場旋回するか（シナリオ）</td><td>C++（<code>make</code>）または <code>custom.json</code></td></tr>
 </tbody>
 </table></div>
@@ -574,9 +575,9 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>状態</th><th>提案</th></tr></thead>
 <tbody>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a> ETラリーの走行精度が悪い</td><td>まとめ役</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a>〜<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a> へ寄せて閉じるか決める</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a> <span class="v cl">済</span> ETラリーの走行精度が悪い</td><td>まとめ役</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a>〜<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a> へ寄せて閉じるか決める</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a> 旋回時にお尻がゲートに当たる</td><td>9/25 に <code>turn_drift</code> を 0 にした</td><td>0 にしたあとも起きているかを確かめて閉じる</td></tr>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a> 縦方向の移動が長い?</td><td>記述は「気がする」だけ</td><td><code>turn_drift = 1</code> のときの行き過ぎ（直進1本ごとに2〜3cm）と同じとみられる。確かめて閉じる</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a> <span class="v cl">済</span> 縦方向の移動が長い?</td><td>記述は「気がする」だけ</td><td><code>turn_drift = 1</code> のときの行き過ぎ（直進1本ごとに2〜3cm）と同じとみられる。確かめて閉じる</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a> ペットボトルにあたる</td><td>本文は PC の経路図1枚だけ（赤 15,25／青 11,12／黄 33,43）</td><td><b>どのボトルに、経路のどこで当たったかを書き足す</b></td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a> 赤と黄が上下に並ぶとき、赤を通ったあとに黄を通ってはならない</td><td>タイトルだけ</td><td>PC の経路の「駆け抜け」（隣り合う2本を一息に抜ける）がこの決まりに反していないか、PC 側で確かめる</td></tr>
 </tbody>
@@ -602,7 +603,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tbody>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a> LAPゲートまでの走行時間を縮める</td><td>どこまで詰めるか（今 14.1〜14.6 秒、下限 約12.7 秒）</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a> カーブの行にあらかじめ旋回量を足す</td><td>入れるか</td></tr>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a> 10/6 を FWD 100 に戻す</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a> のあとで</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a> <span class="v cl">済</span> 10/6 を FWD 100 に戻す</td><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a> のあとで</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a> ルールの確認（計時の起点・線から離れてよいか）</td><td>確認が先</td></tr>
 </tbody>
 </table></div>
@@ -610,7 +611,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>決めること</th></tr></thead>
 <tbody>
-<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a> 走行体の Bluetooth が hardware error で止まる</td><td>原因が分かっていない。<b>journal を永続化</b>（<code>/var/log/journal</code>）して次に追えるようにするか。今は「切れたら再起動」</td></tr>
+<tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a> <span class="v cl">済</span> 走行体の Bluetooth が hardware error で止まる</td><td>原因が分かっていない。<b>journal を永続化</b>（<code>/var/log/journal</code>）して次に追えるようにするか。今は「切れたら再起動」</td></tr>
 <tr><td><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a> 母艦のサブネットマスクが /16</td><td>Windows の設定で直す（Bluetooth を /24、イーサネットの手動 IP を外す）。誰がいつやるか</td></tr>
 </tbody>
 </table></div>
@@ -671,10 +672,10 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
 <tbody>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a></td><td>2026-09-16 に起票（9/30 に「回転に PID 制御を入れて改善」としてクローズ）。開発版（9/25 に分岐）より前なので、大会前の版の事象</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a> <span class="v cl">済</span></td><td>2026-09-16 に起票（9/30 に「回転に PID 制御を入れて改善」としてクローズ）。開発版（9/25 に分岐）より前なので、大会前の版の事象</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></td><td>2026-09-18 に起票。開発版より前。PC の経路の規約の話で、#66 で確かめた</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></td><td>2026-09-23 に起票。開発版より前の版の事象。#65 に関係</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></td><td>2026-09-25 20:26 に起票。turn_drift=1 の行き過ぎとみられる。turn_drift は 9/22 から有り、9/25 22:33 に 0 と決着。9/30 に「曖昧」でクローズ</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a> <span class="v cl">済</span></td><td>2026-09-25 20:26 に起票。turn_drift=1 の行き過ぎとみられる。turn_drift は 9/22 から有り、9/25 22:33 に 0 と決着。9/30 に「曖昧」でクローズ</td></tr>
 </tbody>
 </table></div>
 <h3>開発版で起きた（develop_20260925／develop_20260926_rev1）（10件）</h3>
@@ -682,15 +683,15 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <div class="tw"><table>
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
 <tbody>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></td><td>9/26 10:08・10:35（rev1）で floor_code の打ち直しでずれが育った</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></td><td>9/25〜9/26 の6走行（b9f6730〜0cf2e89。すべて開発版）。ただし中身は #54・#59・#63 と同じで、安定版でも起きる</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a> <span class="v cl">済</span></td><td>9/26 10:08・10:35（rev1）で floor_code の打ち直しでずれが育った</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a> <span class="v cl">済</span></td><td>9/25〜9/26 の6走行（b9f6730〜0cf2e89。すべて開発版）。ただし中身は #54・#59・#63 と同じで、安定版でも起きる</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a></td><td>9/26 14:36（rev1 0cf2e89）で足した 29/1 の行の話。29/1 は開発版にしかない</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a></td><td>9/26 10:35（rev1）。heading_fix.txt=1 のときだけ</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/78">#78</a></td><td>615c804・49e6331 は開発版だけに入っている。develop には無い</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></td><td>9/26 10:35（rev1）の走行で6本すべて当たった</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></td><td>柱1本の判定は rev1 にだけ入っている機能。develop には未反映</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></td><td>PC の開発版（develop_20260925）の上で検証した提案</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></td><td>PC の開発版（develop_20260925 の 77009c1）で480配置を作って確かめた</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a> <span class="v cl">済</span></td><td>PC の開発版（develop_20260925 の 77009c1）で480配置を作って確かめた</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></td><td>9/26 10:58。同じ朝の 10:08・10:35・10:51 の走行はすべて rev1（a7f40e6・080d59c は rev1 にだけ有り、develop に無い）。ハブの USB 切断は版に依らない見込み</td></tr>
 </tbody>
 </table></div>
@@ -700,14 +701,14 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <thead><tr><th>issue</th><th>根拠</th></tr></thead>
 <tbody>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/65">#65</a></td><td>PC の経路計算の車体寸法。PC-System の版の話で、走行体の版とは別</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></td><td>PC と手引きの値の食い違い。PC-System と Docs の話</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a> <span class="v cl">済</span></td><td>PC と手引きの値の食い違い。PC-System と Docs の話</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></td><td>PC の経路（2026-09-26 の JSON）の作りの話。PC-System の版の話</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a></td><td>I/F の未決定事項。版に依らない</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></td><td>Bluetooth・本番前の手順。版に依らない</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a> <span class="v cl">済</span></td><td>Bluetooth・本番前の手順。版に依らない</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a></td><td>母艦のネットワーク設定。版に依らない</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></td><td>LAP までのライントレース。版を区別した記載なし</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a></td><td>同上（制御式の話）</td></tr>
-<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></td><td>同上</td></tr>
+<tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a> <span class="v cl">済</span></td><td>同上</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a></td><td>走り出しの手順・規約の話。版に依らない</td></tr>
 <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></td><td>提案（まだ作っていない）</td></tr>
 </tbody>
