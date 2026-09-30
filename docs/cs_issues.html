@@ -248,7 +248,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td><code>follow_plan.txt</code></td><td><b>0</b>（書き直さない）</td><td>無し（既定 1＝書き直す）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>heading_hold.txt</code></td><td>無し（既定 1＝ジャイロで向きを保つ直進）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>heading_camera.txt</code></td><td>無し（既定 1＝床のコードで向きを測る）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
-<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）</td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
+<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）※ただし L コースの 29/2 の <code>heading_fix.py</code> は<b>このつまみでは止まらない</b>（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
 <tr><td><code>position_fix.txt</code></td><td>無し（既定 0＝位置は打ち直さない）</td><td>無し（既定 0）</td><td>無し（既定 0）</td></tr>
 <tr><td><code>gate_check.txt</code></td><td>無し（既定 1＝ゲートを見て記録する）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>gate_steer.txt</code></td><td><b>無し（既定 0＝寄せない）</b></td><td><b>1</b></td><td><b>1</b></td></tr>
@@ -265,7 +265,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <li><b>つまみ9つのうち、版で値が違うのは <code>follow_plan</code>・<code>heading_fix</code>・<code>gate_steer</code> の3つ。</b>残りの6つは、どの版も同じ値（置いていないか、同じ値）。</li>
 <li><b>ゲートの寄せ（<code>gate_steer</code>）と自己位置の打ち直し（<code>heading_fix</code>）は、開発版にしか効いていない。</b> 安定版は向きの補正だけで走る（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>）。</li>
 <li>安定版の観測の条件は、開発版より緩い（15°・20°、枚数の条件なし）。緩いので、嘘の値を信じて寄せる危険は、寄せが止まっている安定版では実害になっていない。</li>
-<li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。</li>
+<li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。<b><code>heading_fix.txt</code> が既定の 0 でも止まらない</b>。このつまみは、経路の旋回直後の直進へ測る行を差し込むかを決めるだけで、29/2 はシナリオ（<code>custom_Left.json</code>）の SCRIPT から直に呼ばれる。止めるには、SCRIPT を消すか、<code>heading_fix_task.ENABLED = False</code> にする。R コースの 29/2 にはこの SCRIPT が無い。</li>
 <li>差分の詳しい一覧は <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a>。</li>
 </ul>
 <h3>値の種類</h3>
@@ -641,7 +641,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td>経路の前で止まって向きを測る行（29/1）</td><td>無し</td><td>有り</td><td>入り口の回りを測らない</td></tr>
 <tr><td><code>gate_steer.txt</code></td><td><b>無し（既定 0 ＝寄せない）</b></td><td>1</td><td>寄せが止まる</td></tr>
 <tr><td><code>follow_plan.txt</code></td><td><b>0（書き直さない）</b>（94363a7）</td><td>無し（既定 1）</td><td>経路の書き直しが止まる</td></tr>
-<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）</td><td>0</td><td>同じ</td></tr>
+<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）※ただし L コースの 29/2 の <code>heading_fix.py</code> は<b>このつまみでは止まらない</b>（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</td><td>0</td><td>同じ</td></tr>
 <tr><td><code>turn_drift.txt</code></td><td>0</td><td>0</td><td>同じ</td></tr>
 </tbody>
 </table></div>
