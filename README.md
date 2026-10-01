@@ -1,5 +1,7 @@
 # ET_2026_REHEARSAL
 
+📄 **地図つきの資料（HTML）: https://sorot-scskq.github.io/ET_2026_REHEARSAL/cs_issues.html** （ソース: [docs/cs_issues.html](docs/cs_issues.html)）
+
 > **【済】** は、2026-10-01 時点でクローズ済みの Issue。クローズ済みでも、経緯の記録として表に残している。
 
 ## 目次
@@ -167,8 +169,6 @@
 ## 【一覧】CS大会までに対応する／しない不具合（コースの場所別。2026-09-29）
 
 元の Issue: https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/82
-
-📄 **地図つきの資料（HTML）: https://sorot-scskq.github.io/ET_2026_REHEARSAL/cs_issues.html** （ソース: [docs/cs_issues.html](docs/cs_issues.html)）
 
 open issue 37件（2026-09-29 時点。2026-10-01 時点の未完了は 28件）を、**コースのどこで起きるか**で並べ、**CS大会までに対応する／しない**に分けた。
 
