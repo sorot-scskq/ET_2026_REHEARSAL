@@ -418,7 +418,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td><code>follow_plan.txt</code></td><td><b>0</b>（書き直さない）</td><td>無し（既定 1＝書き直す）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>heading_hold.txt</code></td><td>無し（既定 1＝ジャイロで向きを保つ直進）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>heading_camera.txt</code></td><td>無し（既定 1＝床のコードで向きを測る）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
-<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）※ただし L コースの 29/2 の <code>heading_fix.py</code> は<b>このつまみでは止まらない</b>（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
+<tr><td><code>heading_fix.txt</code></td><td>無し（既定 0）※ただし L コースの 29/2 の <code>heading_fix.py</code> は<b>このつまみでは止まらない</b>（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。<b>このつまみはもう使っていない（廃止予定）</b></td><td><b>1</b></td><td><b>0</b>（符号の疑いで止めた）</td></tr>
 <tr><td><code>position_fix.txt</code></td><td>無し（既定 0＝位置は打ち直さない）</td><td>無し（既定 0）</td><td>無し（既定 0）</td></tr>
 <tr><td><code>gate_check.txt</code></td><td>無し（既定 1＝ゲートを見て記録する）</td><td>無し（既定 1）</td><td>無し（既定 1）</td></tr>
 <tr><td><code>gate_steer.txt</code></td><td><b>無し（既定 0＝寄せない）</b></td><td><b>1</b></td><td><b>1</b></td></tr>
@@ -435,7 +435,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <li><b>つまみ9つのうち、版で値が違うのは <code>follow_plan</code>・<code>heading_fix</code>・<code>gate_steer</code> の3つ。</b>残りの6つは、どの版も同じ値（置いていないか、同じ値）。</li>
 <li><b>ゲートの寄せ（<code>gate_steer</code>）と自己位置の打ち直し（<code>heading_fix</code>）は、開発版にしか効いていない。</b> 安定版は向きの補正だけで走る（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a>）。</li>
 <li>安定版の観測の条件は、開発版より緩い（15°・20°、枚数の条件なし）。緩いので、嘘の値を信じて寄せる危険は、寄せが止まっている安定版では実害になっていない。</li>
-<li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。<b><code>heading_fix.txt</code> が既定の 0 でも止まらない</b>。このつまみは、経路の旋回直後の直進へ測る行を差し込むかを決めるだけで、29/2 はシナリオ（<code>custom_Left.json</code>）の SCRIPT から直に呼ばれる。止めるには、SCRIPT を消すか、<code>heading_fix_task.ENABLED = False</code> にする。R コースの 29/2 にはこの SCRIPT が無い。</li>
+<li>安定版は 29/2 で <code>heading_fix.py</code> を使う（符号が逆なら入口の打ち直しが毎回ずれを増やす。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）。<b><code>heading_fix.txt</code> が既定の 0 でも止まらない</b>。このつまみは、経路の旋回直後の直進へ測る行を差し込むかを決めるだけで、29/2 はシナリオ（<code>custom_Left.json</code>）の SCRIPT から直に呼ばれる。止めるには、SCRIPT を消すか、<code>heading_fix_task.ENABLED = False</code> にする。R コースの 29/2 にはこの SCRIPT が無い。<b>なお <code>heading_fix.txt</code> は安定版でも使っておらず、10/31 の develop では打ち直しそのものを止めてファイルも無くした（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a>）。このつまみは廃止予定。</b></li>
 <li>差分の詳しい一覧は <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a>。</li>
 </ul>
 <h3>値の種類</h3>
@@ -458,7 +458,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td><code>follow_plan.txt</code></td><td>1</td><td>走りながら自己位置を見て、先の行の <code>SCD</code>/<code>SCR</code> を書き直すか（開ループをやめる）</td></tr>
 <tr><td><code>heading_hold.txt</code></td><td>1</td><td>直進を、ジャイロの向きを保つ直進（FUNCNO 19）で走るか、エンコーダ補正の直進（FUNCNO 5）で走るか</td></tr>
 <tr><td><code>heading_camera.txt</code></td><td>1</td><td>旋回直後の直進に、床のコードで向きを測る <code>SCRIPT</code> を差し込むか</td></tr>
-<tr><td><code>heading_fix.txt</code></td><td>0</td><td>測った向きを、走らせ方の目標だけでなく<b>自己位置にも</b>打ち直すか</td></tr>
+<tr><td><code>heading_fix.txt</code>（<b>廃止予定</b>）</td><td>0</td><td>測った向きを、走らせ方の目標だけでなく<b>自己位置にも</b>打ち直すか。<b>もう使っていない</b>（10/31 の develop は打ち直しを止めてファイルも無くした。<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>・<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a>）</td></tr>
 <tr><td><code>position_fix.txt</code></td><td>0</td><td>床のコードから出した<b>位置</b>のずれで自己位置を打ち直すか</td></tr>
 <tr><td><code>gate_check.txt</code></td><td>1</td><td>ゲートをカメラで見て「通れる／当たる」を記録するか（走りは変えない）</td></tr>
 <tr><td><code>gate_steer.txt</code></td><td>0</td><td>ゲートの観測を走りへ返し、中心へ寄せるか</td></tr>
@@ -473,7 +473,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <tr><td><code>follow_plan</code></td><td>9/21 の実機で終点の開きが 84/90/108mm → 23/63mm</td><td>0 にしても止まりはしない。<b>安定版は 0</b></td></tr>
 <tr><td><code>heading_hold</code></td><td>FUNCNO 5 は滑りで向きがずれても気づかない</td><td>ジャイロは直進するだけで ±5°/80cm の<b>実在しない回転</b>を積む（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a>）。保とうとして実際に曲がり、記録では真っ直ぐに見える。それを外から直すのが <code>heading_camera</code></td></tr>
 <tr><td><code>heading_camera</code></td><td>床のコードは動かないので、旋回直後にカメラが格子に対する向きを測って目標を直す</td><td>直すのは目標だけ。自己位置は <code>heading_fix</code></td></tr>
-<tr><td><code>heading_fix</code></td><td>向きは「操舵の目標」と「x/y を積む方位」の2か所にある。0 だと走りは直っても自己位置が古い向きのまま積み続ける</td><td>床のコードの一辺のログは 1 のときだけ出る。<b>符号が逆の疑いがある（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</b></td></tr>
+<tr><td><code>heading_fix</code></td><td>向きは「操舵の目標」と「x/y を積む方位」の2か所にある。0 だと走りは直っても自己位置が古い向きのまま積み続ける</td><td>床のコードの一辺のログは 1 のときだけ出る。<b>符号が逆の疑いがある（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a>）</b>。<b>このつまみはもう使っていない（廃止予定）</b></td></tr>
 <tr><td><code>position_fix</code></td><td>床のコードに当てて x/y を打ち直す</td><td><b>自己位置が半マス以上ずれていると隣のコードに当てる</b>（違う場所へ飛ぶ）。実機では未確認</td></tr>
 <tr><td><code>gate_check</code></td><td>自己位置の記録は実際の曲がりを隠す。ゲートは動かない外の基準</td><td>止めも曲げもしない</td></tr>
 <tr><td><code>gate_steer</code></td><td>向きを少し振って中心へ寄せる。振ったまま着くと 1° あたり 3.8mm 狭くなるので、遠くで振って 350mm 以内で正面に戻す</td><td><b>直せるのは約 49mm まで</b>（片側の余裕 47.5mm）。俯角が狂うとゲートを測れない。<b>安定版は 0（寄せない）</b></td></tr>
