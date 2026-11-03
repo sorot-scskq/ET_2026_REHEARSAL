@@ -81,32 +81,52 @@ th{font-size:12px;color:var(--sub);letter-spacing:.04em}
 .toc a:hover{border-color:var(--field);background:var(--fieldsoft)}
 html{scroll-behavior:smooth}h2[id]{scroll-margin-top:16px}
 footer{margin-top:48px;color:var(--sub);font-size:13px}
+
+:root{--new:#0A5FA8;--newsoft:#e3eef8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--new:#8cc2f0;--newsoft:#1c2c3b}}
+:root[data-theme="dark"]{--new:#8cc2f0;--newsoft:#1c2c3b}
+.chip.new{background:var(--newsoft);color:var(--new)}
+.changes{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-top:18px}
+.changes ul{margin:.3em 0;padding-left:1.2em}.changes li{margin:.2em 0}
+.tag.nw{border-color:var(--new);color:var(--new);font-weight:700}
+.pin{flex:none}td.num{white-space:nowrap}
+.histnote{color:var(--sub);font-size:13px;margin-top:8px}
+@media (max-width:520px){.wrap{padding-inline:16px}}
 </style>
 
 <div class="wrap">
 <header>
-  <div class="k">ET_2026_REHEARSAL の open issue 37件（2026-09-29 時点）／2026-10-01 時点の未完了は 28件</div>
+  <div class="k">ET_2026_REHEARSAL の open issue 23件（2026-11-03 時点。前回は 9/29 時点の 37件）</div>
   <h1>CS大会までの不具合整理</h1>
-  <p class="lede">コースのどこで起きるかで並べ、CS大会までに対応するものと、しないものに分けた。分け方の決まりは下の3つ。</p>
+  <p class="lede">コースのどこで起きるかで並べ、CS大会までに対応するものと、保留・大会後に回すものに分けた。分け方は、チームが issue に付けたマイルストーンとラベルに合わせた。</p>
   <div class="rules">
-    <div class="rule"><b>安定版</b><span class="mono">develop</span>（大会の版 ffe75be 以降）。ここで起きる不具合が対応の対象</div>
-    <div class="rule"><b>開発版</b><span class="mono">develop_20260925</span> と、そこから作った <span class="mono">develop_20260926_rev1</span>。開発版だけで起きる不具合は、原則対応しない</div>
-    <div class="rule"><b>対応するものの優先</b>「最優先」は、安定版で点を落としている原因か、作り直し不要で短時間に直せるもの</div>
+    <div class="rule"><b>安定版</b><span class="mono">sorot_spike</span> の <span class="mono">develop</span>。10/31 に <span class="mono">94b670a</span> まで進み、入口の向きの直し方と横ずれの補正が入れ替わった（下の「9/29 からの動き」）</div>
+    <div class="rule"><b>対応する</b>マイルストーン <span class="mono">20261120</span>、または 10月に立った CS大会向けの作業（ET相撲を先にする等）</div>
+    <div class="rule"><b>保留・大会後</b>ラベル「保留」、マイルストーン <span class="mono">20270101</span>、または情報不足・状況が変わって見直しが要るもの</div>
   </div>
   <div class="tally">
-    <span class="chip pri">最優先 6件</span>
-    <span class="chip do">対応する 未完了 16件／全19件</span>
-    <span class="chip dont">対応しない 未完了 11件／全15件</span>
-    <span class="chip dont">一覧・資料 3件（#64 #47 #19）</span>
+    <span class="chip pri">最優先 3件</span>
+    <span class="chip do">対応する 計14件</span>
+    <span class="chip dont">保留・大会後 9件</span>
+    <span class="chip new">9/29 以降の新規 9件（うち open 7件）</span>
+    <span class="chip dont">9/29 以降に閉じた 24件</span>
   </div>
 </header>
-<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースのどこで起きるか</a></li><li><a href="#params">【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</a></li><li><a href="#do">CS大会までに対応する（未完了 16件／全19件）</a></li><li><a href="#dont">CS大会までに対応しない（未完了 11件／全15件）</a></li><li><a href="#dup">重なっている issue</a></li><li><a href="#after">【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</a></li><li><a href="#d74">develop に 9/26 rev1 で効いた直しが入っていない（29/2 heading_fix.py・29/1・gate_steer・follow_plan）</a></li><li><a href="#ver">どの版で起きたか（安定版／開発版）</a></li></ol><p style="margin:10px 0 0;font-size:12px;color:var(--sub)"><span class="v cl">済</span> は、2026-10-01 時点でクローズ済みの issue（経緯の記録として残している）</p></nav>
-
+<nav class="toc" aria-label="目次"><b>目次</b><ol><li><a href="#course">コースのどこで起きるか</a></li><li><a href="#do">CS大会までに対応する（14件）</a></li><li><a href="#hold">保留・大会後・見直し（9件）</a></li><li><a href="#closed">9/29 以降に閉じたもの（24件）</a></li><li><a href="#params">【資料】走行体のパラメータ一覧</a></li><li><a href="#after">【記録】大会後の対応方針を決める（9/29 時点）</a></li><li><a href="#d74">【記録】develop に 9/26 rev1 の直しが入っていない</a></li><li><a href="#ver">【記録】どの版で起きたか</a></li></ol></nav>
+<div class="changes">
+  <div class="k">9/29 からの動き</div>
+  <ul>
+    <li><b>入口（29/2）の向き</b>は、床のコードを測って 29/3 でずれ全量をその場旋回する「QR角度補正」（上限 ±22.5°）に置き換わった（#72）。自己位置を打ち直す heading_fix は 10/31 に止めた（#76・#77・#78）。<b>各色で向きがそろうかは、まだ実走で確かめていない。</b></li>
+    <li><b>横ずれ</b>は、床のコードの真ん中を通る補正 <span class="mono">qr_steer.py</span>（既定で有効）で決着した（#63）。gate_steer・position_fix・follow_plan は無効。</li>
+    <li><b>ET相撲を先に行う</b>方針になり、シナリオ（#85）・押し出す距離（#89）・ETラリー後のガレージへの走行（#90）が新しく立った。</li>
+    <li><b>10/31 の実機5走行</b>から修正案が出た（#91）。ただし計測に使った走行体の <span class="mono">custom.json</span> は develop と食い違っていて、QR角度補正の行が入っていない。</li>
+  </ul>
+</div>
 
 <h2 id="course">コースのどこで起きるか</h2>
 <div class="mapgrid">
   <div class="mapbox">
-    <svg viewBox="0 0 600 800" role="img" aria-label="Lコースの地図に、不具合の起きる場所を①〜⑤で示した図">
+    <svg viewBox="0 0 600 800" role="img" aria-label="Lコースの地図に、不具合の起きる場所を①〜⑥で示した図">
 
           <defs><clipPath id="mapclip"><rect x="0" y="0" width="600" height="800" rx="24" ry="24"/></clipPath></defs>
           <g clip-path="url(#mapclip)">
@@ -129,13 +149,10 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
           <circle cx="200" cy="662" r="11" fill="#17A34A"/>
           <g fill="#0A76C8"><rect x="486" y="492" width="9" height="22"/><rect x="486" y="550" width="9" height="22"/><rect x="486" y="608" width="9" height="22"/><rect x="486" y="664" width="9" height="22"/></g>
 
-          <!-- スタート -->
           <rect x="498" y="4" width="27" height="72" rx="5" fill="#F4A8C0" stroke="#3E382F" stroke-width="1"/>
           <text x="511" y="44" font-size="19" font-weight="800" fill="#3E382F" text-anchor="middle" transform="rotate(-90 511 44)">START</text>
           <polygon points="499,79 524,79 511.5,98" fill="#D62027"/>
-          
 
-          <!-- チェックポイント -->
           <g stroke="#D62027" stroke-width="5">
             <line x1="308" y1="11" x2="308" y2="45"/><line x1="308" y1="65" x2="308" y2="99"/>
             <line x1="136" y1="196" x2="170" y2="196"/><line x1="190" y1="196" x2="224" y2="196"/>
@@ -147,7 +164,6 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
             <polygon points="33,342 55,342 44,360"/><polygon points="89,342 111,342 100,360"/>
           </g>
 
-          <!-- LAPゲート -->
           <rect x="10" y="550" width="26" height="70" rx="5" fill="#F4A8C0" stroke="#3E382F" stroke-width="1"/>
           <text x="23" y="590" font-size="19" font-weight="800" fill="#3E382F" text-anchor="middle" transform="rotate(-90 23 590)">LAP</text>
           <g stroke="#D62027" stroke-width="5">
@@ -157,10 +173,8 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
             <polygon points="38,564 60,564 49,582"/><polygon points="89,564 111,564 100,582"/>
           </g>
 
-          <!-- 土俵 -->
           <circle cx="146" cy="432" r="41" fill="none" stroke="#9A9082" stroke-width="4"/>
 
-          <!-- ゲートの立つ場所 -->
           <g fill="#D8D8D8">
             <circle cx="232" cy="470" r="8"/><circle cx="286" cy="470" r="8"/><circle cx="342" cy="470" r="8"/><circle cx="396" cy="470" r="8"/><circle cx="452" cy="470" r="8"/>
             <circle cx="232" cy="526" r="8"/><circle cx="286" cy="526" r="8"/><circle cx="342" cy="526" r="8"/><circle cx="396" cy="526" r="8"/><circle cx="452" cy="526" r="8"/>
@@ -168,7 +182,6 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
             <circle cx="232" cy="640" r="8"/><circle cx="286" cy="640" r="8"/><circle cx="342" cy="640" r="8"/><circle cx="396" cy="640" r="8"/><circle cx="452" cy="640" r="8"/>
             <circle cx="232" cy="696" r="8"/><circle cx="286" cy="696" r="8"/><circle cx="342" cy="696" r="8"/><circle cx="396" cy="696" r="8"/><circle cx="452" cy="696" r="8"/>
           </g>
-          <!-- 床の二次元コード -->
           <g fill="#ffffff" stroke="#5A5A5A" stroke-width="1.4">
             <rect x="252" y="492" width="14" height="14"/><rect x="308" y="492" width="14" height="14"/><rect x="364" y="492" width="14" height="14"/><rect x="418" y="492" width="14" height="14"/>
             <rect x="252" y="548" width="14" height="14"/><rect x="308" y="548" width="14" height="14"/><rect x="364" y="548" width="14" height="14"/><rect x="418" y="548" width="14" height="14"/>
@@ -186,23 +199,18 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
             <rect x="262" y="672" width="4" height="4"/><rect x="318" y="672" width="4" height="4"/><rect x="374" y="672" width="4" height="4"/><rect x="428" y="672" width="4" height="4"/>
           </g>
 
-          <!-- 色のエリア -->
           <g stroke="#3E382F" stroke-width="1.6">
             <rect x="520" y="488" width="52" height="40" rx="5" fill="#D62027"/>
             <rect x="520" y="552" width="52" height="42" rx="5" fill="#0A5FA8"/>
             <rect x="520" y="618" width="52" height="40" rx="5" fill="#F2D024"/>
           </g>
 
-          <!-- ヒントカード -->
-          <!-- ヒントカード1・2（5cm角の二次元コード）の設置位置 -->
           <g fill="#fff" stroke="#3E382F" stroke-width="3">
             <rect x="191" y="764" width="20" height="20" rx="2"/><rect x="532" y="698" width="20" height="20" rx="2"/>
           </g>
 
-          <!-- ガレージ -->
           <rect x="40" y="712" width="64" height="80" rx="6" fill="none" stroke="#9A9082" stroke-width="4"/>
 
-          <!-- 目印バッジ -->
           <g font-weight="800" text-anchor="middle" fill="#fff" font-size="24">
             <circle cx="466" cy="40" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="466" y="49">S</text>
             <circle cx="308" cy="142" r="20" fill="#3E382F" stroke="#fff" stroke-width="2.5"/><text x="308" y="151">C</text>
@@ -216,30 +224,192 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
           </g>
           <text x="18" y="38" font-size="30" font-weight="800" fill="#ffffff">L コース</text>
           </g>
-        
+
       <g font-family="JetBrains Mono,monospace" font-weight="700" font-size="20" text-anchor="middle">
         <g><circle cx="420" cy="132" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="420" y="139" fill="#fff">1</text></g>
         <g><circle cx="570" cy="742" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="570" y="749" fill="#fff">2</text></g>
         <g><circle cx="505" cy="468" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="505" y="475" fill="#fff">3</text></g>
         <g><circle cx="474" cy="548" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="474" y="555" fill="#fff">4</text></g>
         <g><circle cx="342" cy="728" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="342" y="735" fill="#fff">5</text></g>
+        <g><circle cx="200" cy="404" r="19" fill="#1d2430" stroke="#fff" stroke-width="3"/><text x="200" y="411" fill="#fff">6</text></g>
       </g>
     </svg>
   </div>
   <div class="legend">
-    <div class="lg"><div class="pin">1</div><div><div class="t">スタート〜LAPゲート</div><div class="c">走行タイム（1秒縮めると1点）。対応する 1件／しない 3件</div></div></div>
-    <div class="lg"><div class="pin">2</div><div><div class="t">ヒントカード1・2</div><div class="c">Lと Rでシナリオの値が食い違う。対応する 1件</div></div></div>
-    <div class="lg"><div class="pin">3</div><div><div class="t">ボトルデリバリー（赤・青・黄のエリア）</div><div class="c">赤ルートでハブが落ちた。対応する 1件（赤の運び終わりの向きは④の #59）</div></div></div>
-    <div class="lg"><div class="pin">4</div><div><div class="t">ETラリーの入口（29/2 で止まる所）</div><div class="c">ここで向きが 5〜10° ずれると、1周目のゲートまで持ち越す。対応する 5件／しない 7件</div></div></div>
-    <div class="lg"><div class="pin">5</div><div><div class="t">ETラリーのゲート（格子）</div><div class="c">横に 50〜110mm ずれて柱に当たる。PC の経路の直し。対応する 8件／しない 4件</div></div></div>
-    <div class="lg"><div class="pin" style="background:var(--sub)">・</div><div><div class="t">コースの外（通信・記録）</div><div class="c">Bluetooth・母艦の設定・後から追う記録。対応する 3件／しない 1件</div></div></div>
+    <div class="lg"><div class="pin">1</div><div><div class="t">スタート〜LAPゲート</div><div class="c">走行タイム（1秒縮めると1点）。対応する 1件／保留・大会後 2件。走り出しの音は止めた（#58）</div></div></div>
+    <div class="lg"><div class="pin">2</div><div><div class="t">ヒントカード1・2</div><div class="c">Lと Rの値の食い違い、カード1までの走り方。対応する 2件</div></div></div>
+    <div class="lg"><div class="pin">3</div><div><div class="t">ボトルデリバリー（赤・青・黄のエリア）</div><div class="c">未解決なし。赤ルートでハブが落ちた件（#73）は再現せず閉じた</div></div></div>
+    <div class="lg"><div class="pin">4</div><div><div class="t">ETラリーの入口（29/2→29/3）</div><div class="c">QR角度補正に置き換わった。効いたかの確認と、10/31 の修正案。対応する 4件</div></div></div>
+    <div class="lg"><div class="pin">5</div><div><div class="t">ETラリーのゲート（格子）</div><div class="c">横ずれは qr_steer で決着。PC の経路の直し。対応する 3件／保留・その他 6件</div></div></div>
+    <div class="lg"><div class="pin">6</div><div><div class="t">ET相撲・ガレージ</div><div class="c">相撲を先に行う順番へ。対応する 3件（すべて新規）</div></div></div>
+    <div class="lg"><div class="pin" style="background:var(--sub)">・</div><div><div class="t">コースの外（通信・I/F）</div><div class="c">残り時間の受け渡し。対応する 1件／見直し 1件</div></div></div>
   </div>
 </div>
+
+<h2 id="do">CS大会までに対応する（14件）</h2>
+<p>赤い線が最優先。「作り直し」は走行体で <span class="mono">make</span> が要るか。青い「新規」は 9/29 以降に立った issue。</p>
+
+<h3><span class="pin">4</span>ETラリーの入口：QR角度補正が効いているかを確かめる</h3>
+<div class="items">
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/91">#91</a></div><div class="ti">10/31 実機計測からの修正案（補正の上限 5°・ライントレースの飽和・custom.json の食い違い）</div>
+    <div class="body"><p>実機5走行（Lコース）の集計。電池・Pi の温度に異常は無い。修正案は4つで、<b>どれも作り直し不要</b>。</p>
+    <p>① 床のコードによる向きの打ち直しは、上限 5.0° でちょうど大きいずれだけを捨てていた（59回中14回見送り。採用の最大 4.88°、見送りの最小 5.00°）。<span class="mono">coord_correct.py</span> の <span class="mono">MAX_CORRECTION_DEG</span> を 8.0 に上げる案。② ライントレースの KP 5 の行（10/2・10/4・10/7・10/8）が FWD 100 で PWM を飽和させ、曲がるたびに減速する。KP 3 にする案（①の地図の区間にも関わる）。③ <b>走行体で走っている <span class="mono">custom.json</span> は未コミットの版で、develop の QR角度補正の行が無い。</b>どちらを本番にするか決める。④ コメントの値の直し。</p>
+    <p>注意：#76・#77 には「develop では heading_fix を 10/31 に止めた」とある。①の集計は走行体の手元の版で測ったもので、develop の版とは打ち直しの道が違う。③で本番の版を決めてから測り直すのが確実。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">custom.json・Python</span><span class="tag">作り直し不要</span><span class="tag">#87・#86 と関係</span></div></div>
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a></div><div class="ti">入口で止まる向きを、運んだボトルの色によらずそろえる</div>
+    <div class="body"><p>9/29 時点では、赤を運んだ回だけ入口の向きが +4〜+8° ずれていた。その後、入口は「29/2 で床のコードを測り、29/3 でずれ全量をその場旋回（上限 ±22.5°）」に置き換わった（#72）。10/24 のこの経路の実測は24回中18回成功、ずれは全部マイナス（中央 -6°）で、測定側の偏りかもしれない（#91）。</p>
+    <p>対応：床のコードに正対させて置き、0 が出るかを先に確かめる。そのうえで各色3走行し、29/3 の後に向きがそろうかを見る。</p></div>
+    <div class="meta"><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span><span class="tag">#91 の③が先</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/87">#87</a></div><div class="ti">ETラリー入りの角度の精度を高くする</div>
+    <div class="body"><p>ボトルキャリーの後、ETラリーの方向を向くときの角度。案は2つ：ゲート位置補助情報による補正を入りでも行う、旋回前にジャイロの角速度が落ち着くまで止まる。どちらも止まる時間が増える。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">#59・#91 と同じ場所</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a></div><div class="ti">ETラリーの出来がボトルの色で変わる（親）</div>
+    <div class="body"><p>分析の本体。子の #60・#61・#62 は 10/31 に閉じ、残る子は #59。#59 が各色でそろえば閉じる。</p></div>
+    <div class="meta"><span class="tag">まとめ役</span></div></div>
+</div>
+
+<h3><span class="pin">5</span>ETラリーのゲート：経路と横ずれ</h3>
+<div class="items">
+  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/65">#65</a></div><div class="ti">PC の経路計算の車体寸法を実物に合わせる</div>
+    <div class="body"><p>PC は半幅 60mm・前端 70mm で計算しているが、実物は 67.5mm・80mm。足に近づく判定が片側 7.5mm 甘い。お尻が当たる件（#38、保留）の一因。</p>
+    <p>対応：PC-System の定数3つを直し、全配置で経路が作れるかを確かめる。</p></div>
+    <div class="meta"><span class="tag">PC-System</span><span class="tag">走行体は変えない</span><span class="tag">11/20</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></div><div class="ti">PC：ゲートの手前に助走を取る（実装・全配置の検証済み）</div>
+    <div class="body"><p>#63 は qr_steer で決着し、この件は「子の Issue で判断する」に回った。助走 617mm で直せる横ずれは約 35mm。qr_steer と合わせて要るかを決める。</p></div>
+    <div class="meta"><span class="tag">PC-System</span><span class="tag">11/20</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></div><div class="ti">走行体がゲートの手前で止まり、横へずれて入り直す</div>
+    <div class="body"><p>前回は「大会後」に分けたが、マイルストーンは 11/20 のまま。行を挿し込むと後ろの行番号が振り直される危険は変わらない。qr_steer の結果を見て、要るかを決め直す。</p></div>
+    <div class="meta"><span class="tag">新機能</span><span class="tag rb">作り直し</span><span class="tag">11/20</span></div></div>
+</div>
+
+<h3><span class="pin">6</span>ET相撲・ガレージ：相撲を先に行う</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/85">#85</a></div><div class="ti">相撲を先に行うシナリオの作成</div>
+    <div class="body"><p>Lコース用のシナリオは sorot_spike の <span class="mono">develop_nakahara</span> に作成済み。力士ボトルの置き場所で、ほかの走行に支障が無いかを確かめる。時間が実際に縮むかも試す。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">シナリオ</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/89">#89</a></div><div class="ti">相撲のボトルを押し出す距離を調整する</div>
+    <div class="body"><p>今は押し出す距離が長い。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">シナリオ</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/90">#90</a></div><div class="ti">ETラリー後のガレージへの走行の作成</div>
+    <div class="body"><p>相撲を先にしたので、ETラリーの後からガレージへ向かう走行を新しく作る。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">#85 の続き</span></div></div>
+</div>
+
+<h3><span class="pin">2</span>ヒントカード</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></div><div class="ti">custom_Left.json と custom_Right.json に、左右反転でない違いがある</div>
+    <div class="body"><p>20/7 の SCV が L=2・R=1 で、R はヒントカード2を読めなくても先へ進む。21/12・22/9 の旋回角、止まる時間（8000 と 2000）も揃っていない。加えて、R の 29/2 には入口の補正の SCRIPT が無い（#76 のコメント）。</p>
+    <p>対応：意図した違いか、合わせ忘れかを確かめる。</p></div>
+    <div class="meta"><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span><span class="tag">11/20</span></div></div>
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/84">#84</a></div><div class="ti">ヒントカード1までの走行方法修正</div>
+    <div class="body"><p>ラインに沿わない走り方に変え、時間が縮むかを試す。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">シナリオ</span></div></div>
+</div>
+
+<h3><span class="pin">1</span>スタート〜LAPゲート</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/86">#86</a></div><div class="ti">走行エリアの時間を短くする</div>
+    <div class="body"><p>シナリオを直して走行エリアの時間を縮める。#91 の②（KP 5 の行で PWM が飽和し、曲がるたびに減速）がそのまま効く候補。</p></div>
+    <div class="meta"><span class="tag nw">新規</span><span class="tag">シナリオ</span><span class="tag">1秒＝1点</span></div></div>
+</div>
+
+<h3><span class="pin" style="background:var(--sub)">・</span>コースの外</h3>
+<div class="items">
+  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a></div><div class="ti">走行体の残り時間を PC へ渡す（I/F 未決定・動作未確認）</div>
+    <div class="body"><p>マイルストーンは 11/20。インターフェースが決まっておらず、9/26 から動きが無い。無くても走れる。</p></div>
+    <div class="meta"><span class="tag">未決定</span><span class="tag">11/20</span></div></div>
+</div>
+
+<h2 id="hold">保留・大会後・見直し（9件）</h2>
+<p>チームがラベル「保留」やマイルストーン 20270101 を付けたもの、情報不足のもの、状況が変わって中身を見直すもの。</p>
+
+<h3><span class="pin">5</span>ゲート</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></div><div class="ti">PC：最後の GATE_PASS_EXTRA（+25mm）が打ち消されず残る</div>
+    <div class="body"><p>最後の1回だけ打ち消す直進が無く、x が約 +26mm ずれたまま終わる。10/29 に保留。</p></div>
+    <div class="meta"><span class="tag">保留</span><span class="tag">PC-System</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></div><div class="ti">9/26 10:35 に6本すべてのゲートに当たった</div>
+    <div class="body"><p>開発版の走行。原因とみていた打ち直し（heading_fix）は 10/31 に止めた。10/29 に保留。</p></div>
+    <div class="meta"><span class="tag">保留</span><span class="tag">開発版</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></div><div class="ti">旋回時、お尻がゲートに当たる</div>
+    <div class="body"><p>10/29 に保留。残るなら #65 で直す。</p></div>
+    <div class="meta"><span class="tag">保留</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></div><div class="ti">赤と黄が上下に並ぶとき、赤を通った後に黄を通ってはならない</div>
+    <div class="body"><p>確かめた結果の #66 は 9/30 に閉じた。#23 は 10/29 に保留。</p></div>
+    <div class="meta"><span class="tag">保留</span><span class="tag">11/20</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></div><div class="ti">柱が1本しか見えなくても判定し、寄せる</div>
+    <div class="body"><p>#63 の残りの判断としてここに回った。develop には未反映のまま。マイルストーンなし。</p></div>
+    <div class="meta"><span class="tag">開発版のみ</span><span class="tag">判断待ち</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></div><div class="ti">ペットボトルに当たる</div>
+    <div class="body"><p>本文が経路図1枚だけで、どのボトルに経路のどこで当たったかが分からない。相撲を先にする順番（#85）でも起きるかは不明。</p></div>
+    <div class="meta"><span class="tag">情報不足</span></div></div>
+</div>
+
+<h3><span class="pin">1</span>LAPまでのタイム短縮（制御の中身を変える）</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a></div><div class="ti">カーブの行にあらかじめ旋回量を足す（見込み 0.4〜0.6秒）</div>
+    <div class="body"><p>ライントレース全体の制御式を変える（C++）。10/24 に保留。</p></div>
+    <div class="meta"><span class="tag">保留</span><span class="tag rb">作り直し</span><span class="tag">2027/01/01</span></div></div>
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></div><div class="ti">LAPゲートまでの走行時間を縮める（親）</div>
+    <div class="body"><p>子の #57 は「効果が薄い」で、#58 は音を止めて閉じた。CS大会までの短縮は #86・#84・#91 の②で進める。</p></div>
+    <div class="meta"><span class="tag">まとめ役</span><span class="tag">2027/01/01</span></div></div>
+</div>
+
+<h3><span class="pin" style="background:var(--sub)">・</span>見直し</h3>
+<div class="items">
+  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></div><div class="ti">develop に 9/26 rev1 で効いた直しが入っていない</div>
+    <div class="body"><p>挙げていた4つのうち、29/2 の heading_fix は止め、29/1 の測る行は無くなり、gate_steer は qr_steer に置き換わった。残るのは follow_plan（develop では無効）だけ。中身を書き直すか閉じる。</p></div>
+    <div class="meta"><span class="tag">状況が変わった</span></div></div>
+</div>
+
+<h2 id="closed">9/29 以降に閉じたもの（24件）</h2>
+<div class="tw"><table>
+  <thead><tr><th>issue</th><th>閉じた日</th><th>結果</th></tr></thead>
+  <tbody>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a></td><td class="num">10/31</td><td>入口を QR角度補正（29/2 で測り、29/3 でずれ全量をその場旋回。上限 ±22.5°）に差し替えた。二重に当てない歯止めも入った</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a></td><td class="num">10/31</td><td>符号の逆を c2ea6bc3（10/24）で直し、heading_fix そのものを 9146607e（10/31）で止めた</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a></td><td class="num">10/31</td><td>heading_fix を止め、heading_fix.txt も無くしたため解消</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/78">#78</a></td><td class="num">10/31</td><td>判断不要（2つのコミットはどちらも develop に無く、呼び出し元も止めた）</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a></td><td class="num">10/31</td><td>横ずれは床のコードの真ん中を通る補正 qr_steer.py（既定で有効）で決着。残りは #67・#68・#69 へ</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a></td><td class="num">10/31</td><td>向き保持の上限 10°・1回 3° は据え置き。床のコードで裏を取る仕組みは入れない</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a></td><td class="num">10/31</td><td>入口の補正の画像を3枚ずつ残す（correction_photo.py）。旋回の時間切れのログは見送り</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a></td><td class="num">10/31</td><td>対応不要：床のコードを読む道が俯角を1枚ごとに合わせ直し、ログに残す。ただし黒線の向き・ゲートの距離の側は 21.0° 固定のまま</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></td><td class="num">10/31</td><td>9/26 以降再現せず。再発したら gdb で全スレッドの状態を取って新しい issue に</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a></td><td class="num">10/31</td><td>走り出しの瞬間に鳴らす音を止めた（キャリブレーション中は残す）。#88 は重複で 10/29 に閉じた</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a></td><td class="num">10/31</td><td>完了（コメントなし）</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></td><td class="num">9/30</td><td>PC の KP 2 を正とし、走行体の手引きを直した（49d63bc）。同じ条件での実機比較は未実施</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></td><td class="num">9/30</td><td>本番前の再起動をチェックリストに入れた</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/19">#19</a></td><td class="num">9/30</td><td>回転に PID 制御を入れて改善</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></td><td class="num">9/30</td><td>効果は薄いと判断</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></td><td class="num">9/30</td><td>内容が曖昧なため</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></td><td class="num">9/30</td><td>完了（コメントなし）。#23 は保留で残る</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></td><td class="num">9/30</td><td>ほかの issue で扱う</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></td><td class="num">9/30</td><td>重複（#76・#77）</td></tr>
+    <tr><td class="num"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/83">#83</a> <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/82">#82</a> <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a> <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47">#47</a></td><td class="num">9/30〜10/24</td><td>方針・一覧・資料（戦略方針の決定、この一覧の GitHub 版、大会後の方針、パラメータ一覧）</td></tr>
+  </tbody>
+</table></div>
 
 <h2 id="params">【資料】走行体のパラメータ一覧（どこを触ると何が変わるか）</h2>
 <p>元の Issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26">https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47（2026-09-26</a> 時点）／原本: sorot_spike の <code>Docs/parameters_matrix.md</code>（ブランチ <code>develop_20260925</code>）</p>
 <p>走行体のパラメータを、<b>どこを触ると何が変わるか</b>でまとめた資料。旋回でお尻がゲートに当たる件（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a>）の距離の話は <code>turn_drift</code> を参照。</p>
-<h3>先に：安定版と開発版でどこが違うか</h3>
+<h3>2026-10-31 の develop（94b670a）で変わったこと</h3>
+<p>この下の表は 2026-09-30 時点（安定版 = develop ffe75be）。その後 10/31 に develop が大きく変わったので、issue のコメントに書かれた範囲で先にまとめる（走行体に置いてある <span class="mono">.txt</span> の中身は実機で確かめていない）。</p>
+<div class="tw"><table>
+<thead><tr><th>項目</th><th>10/31 の develop</th><th>出どころ</th></tr></thead>
+<tbody>
+<tr><td>自己位置の向きの打ち直し（heading_fix）</td><td><b>止めた</b>（9146607e）。<span class="mono">heading_fix.txt</span> も無くした。<span class="mono">2026/recog/heading_fix.py</span> はログを1行出すだけ</td><td class="num">#76・#77</td></tr>
+<tr><td>floor_code の向きの符号</td><td>c2ea6bc3（10/24）で直した</td><td class="num">#76</td></tr>
+<tr><td>入口（29/2→29/3）</td><td><b>QR角度補正</b>：29/2 で床のコードを測り（<span class="mono">qr_turn_correction.py</span>）、29/3 でずれ全量をその場旋回（SCJFN 33、上限 ±22.5°）。29/1 の測る行は無い</td><td class="num">#72・#62</td></tr>
+<tr><td>横ずれの補正</td><td><b><span class="mono">qr_steer.py</span>（既定で有効。止めるときは <span class="mono">qr_steer.txt</span> に 0）</b>。床のコードの真ん中を通る</td><td class="num">#63</td></tr>
+<tr><td>gate_steer / position_fix / follow_plan</td><td>既定で無効 / 既定で無効 / <span class="mono">follow_plan.txt</span> が 0 で無効</td><td class="num">#63</td></tr>
+<tr><td><span class="mono">MAX_CORRECTION_DEG</span>（coord_correct.py）</td><td>5.0 のまま。呼び出し元の heading_fix を止めたので効かない</td><td class="num">#78・#62</td></tr>
+<tr><td><span class="mono">HEADING_CORRECT_MAX_DEG</span> / <span class="mono">STEP_DEG</span></td><td>10.0° / 3.0° で据え置き</td><td class="num">#62</td></tr>
+<tr><td>カメラの俯角</td><td>床のコードを読む道（FloorCodeReader）は1枚ごとに合わせ直してログに出す。heading_reader.py・gate_finder は 21.0° 固定のまま</td><td class="num">#60</td></tr>
+<tr><td>入口の画像</td><td><span class="mono">correction_photo.py</span> が補正を当てたときに3枚残す（PhotoImage/correction/、上限 400枚）</td><td class="num">#61</td></tr>
+</tbody></table></div>
+<p><b>注意（#91）:</b> 10/31 の実機計測で走行体が走らせていた <span class="mono">SubScenario/custom.json</span> は develop と食い違う未コミットの版で、QR角度補正の行が無い。走行体の手元の版は上の表と同じではない。</p>
+
+<h3>先に：安定版と開発版でどこが違うか（2026-09-30 時点）</h3>
 <p>原本は開発版（<code>develop_20260925</code>）の記述。<b>安定版（<code>develop</code>、大会の版 ffe75be）は値が違うものがあるので、git で確かめた結果を並べる。</b></p>
 <div class="tw"><table>
 <thead><tr><th>項目</th><th>安定版（develop）</th><th>開発版（develop_20260925）</th><th>rev1（develop_20260926_rev1）</th></tr></thead>
@@ -386,180 +556,8 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 <li><b>電池を替えたら測り直す量がある</b>（<code>STOP_LEAD_TIME</code>・<code>TURN_DRIFT_MM</code>）。</li>
 </ul>
 
-<h2 id="do">CS大会までに対応する（未完了 16件／全19件）</h2>
-<p class="k">版の区別: <span class="v s">安定版</span> 大会の版（develop ffe75be）の走行で起きた　<span class="v d">開発版</span> develop_20260925／rev1 でだけ起きた　<span class="v m">開発版の走行・安定版にも影響</span>　<span class="v n">版に依らない</span> コード・PC・手順の話　<span class="v u">版を決められない</span>　<span class="v s">大会前の版</span> 9/25 の開発版より前</p>
-<p>赤い線が最優先。「作り直し」は走行体で <span class="mono">make</span> が要るか。</p>
-
-<h3><span class="pin">4</span>ETラリーの入口：向きを揃えてから走り出す</h3>
-<div class="items">
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/59">#59</a></div><div class="ti">入口（29/2）で止まる向きを、運んだボトルの色によらず揃える</div>
-    <div class="body"><p>赤を運んだ回だけ入口の向きが +4〜+8° ずれ、10回中8回は打ち直しの上限（5°）を超えて見送っている。赤の運び終わりだけ「白を見るまで右旋回」の古いやり方が残っているため。<b>ボトルの色はランダムなので、本番でも起きる。</b></p>
-    <p>対応：赤の 21/11〜21/12 を黄・青と同じ角度だけの旋回にする（または 21/12 の SCR を詰める）。各色3走行で 29/2 の値を見る。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span><span class="tag">#54 の本命</span></div></div>
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/60">#60</a></div><div class="ti">カメラの俯角を測り直し、走行ごとに確かめる</div>
-    <div class="body"><p>会場と本社で俯角が約3°違っていた（設定は 21.0° 固定）。2〜3° ずれると、黒線から測る向きの符号が逆になる回があり、ゲートの距離・横位置も十数%狂う。柱に当たると動く。</p>
-    <p>対応：本番の機体の俯角を測り直す。走行ごとに、柱の間隔（芯々 254mm）が合っているかを集計で見る。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">校正ファイル</span><span class="tag">作り直し不要</span></div></div>
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/76">#76</a></div><div class="ti">床のコード（floor_code）で測った向きの符号が逆の疑いを、確かめる</div>
-    <div class="body"><p>開発版で起きた件だが、<b>安定版の custom_Left.json も 29/2 で同じ測り方（heading_fix.py）を使っている。</b>符号が逆なら、入口の打ち直しが毎回ずれを増やす。</p>
-    <p>対応：確かめるだけ。同じ画像を floor_code と目印（markers）にかけ、符号が揃うかを見る。逆なら 29/2 の打ち直しを止める。</p></div>
-    <div class="meta"><span class="v m">開発版の走行・安定版にも影響</span><span class="tag">Python（確認のみ）</span><span class="tag">作り直し不要</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a></div><div class="ti">ETラリーの出来がボトルの色で変わる（親）</div>
-    <div class="body"><p>分析の本体。対応は #59・#60・#61・#62 に切り出してある。#59 を入れて各色3走行が揃えば閉じる。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">まとめ役</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/62">#62</a></div><div class="ti">向きのずれが 10° を超えると「測り間違い」として捨てられ、本当にずれていても直せない</div>
-    <div class="body"><p>本当に 10° 回っていたのに、測り間違いとして捨てていた回がある。上限は C++ に2か所あり、片方だけ広げると「当てた」と出て何も起きない。#59 で入口のずれが減れば、10° を超える回そのものが減る。</p>
-    <p>対応：#59 の結果を見てから決める。先に #76 の符号の確認が要る。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">C++</span><span class="tag rb">作り直し</span><span class="tag">#59 の後</span></div></div>
-</div>
-
-<h3><span class="pin">5</span>ETラリーのゲート：経路と当たり判定</h3>
-<div class="items">
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/65">#65</a></div><div class="ti">PC の経路計算の車体寸法を実物に合わせる</div>
-    <div class="body"><p>PC は半幅 60mm・前端 70mm で計算しているが、実物は 67.5mm・80mm（幅 135mm）。足に近づく判定が片側 7.5mm 甘く、ゲート直後の旋回は足先まで +13mm しか残らない。#38（お尻が当たる）の一因。</p>
-    <p>対応：PC-System の定数3つを直し、全配置で経路が作れるかを確かめる。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">PC-System</span><span class="tag">走行体は変えない</span></div></div>
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/63">#63</a></div><div class="ti">【方針】横ずれ（位置）を直す仕組みを入れるか</div>
-    <div class="body"><p>安定版では向きの補正しか動いておらず、横ずれを直す仕組みは1つも動いていない。ゲートで通れる横ずれは片側 47.5mm。1周目は 50〜110mm ずれて当たる（#71 の記録）。</p>
-    <p>候補：PC の助走（#68）、ゲートの行を遅くする（PC-System main-develop に依頼中）、寄せ（<span class="mono">gate_steer.txt</span>。安定版は 0）。<b>CS大会までに1つ決める。</b>寄せだけでは 49mm までしか直せない。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">判断</span><span class="tag">PC・つまみ</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/68">#68</a></div><div class="ti">PC：ゲートの手前に助走を取る（実装・全配置の検証済み）</div>
-    <div class="body"><p>今の経路は6本とも旋回の直後にゲートを通り、手前の直線が 125〜364mm しかない。これでは柱を見て寄せる時間が無い。助走 617mm で直せる横ずれは約 35mm。60秒の上限つきで、取れないゲートは今までどおり。</p>
-    <p>対応：#63 で入れると決めたら取り込む。走行体は変えない。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">PC-System</span><span class="tag">#63 の候補</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/81">#81</a></div><div class="ti">最後のゲート通過の余裕 25mm が打ち消されず、ゴール手前で位置が約 26mm ずれる</div>
-    <div class="body"><p>ゲート通過の着地点に足した 25mm は、後の同じ軸の直進で打ち消す作り。最後の1回だけ打ち消す直進が無く、x が約 +26mm ずれたまま終わる。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">PC-System</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/80">#80</a></div><div class="ti">その場旋回の KP が PC（2）と走行体の手引き（0）で逆</div>
-    <div class="body"><p>KP は旋回の行では「押し直しの許容[度]」。9/22 以降の走行はすべて KP 2。手引きの「押し直すと悪くなる」は 9/14 の布での結果。どちらが正しいか、同じ条件で比べて決める。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">判断</span><span class="tag">PC の値</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/66">#66</a></div><div class="ti">赤と黄が上下に並ぶ配置で、赤を突き抜けると前端が黄の線を越える（#23）</div>
-    <div class="body"><p>480配置すべてで、赤を通った後に車体の前端が黄の線を越え、後退で戻る。これが「赤の後に黄を通過した」とみなされるなら反則になる。</p>
-    <p>対応：規約の解釈を運営に確かめる。みなされるなら PC の着地点を手前にする。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v d">開発版</span><span class="tag">規約の確認</span><span class="tag">#23 と一緒に閉じる</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/38">#38</a></div><div class="ti">旋回時、お尻がゲートに当たる</div>
-    <div class="body"><p>9/25 に turn_drift を 0 にした後も起きているかを確かめ、起きていなければ閉じる。残るなら #65 で直す。</p></div>
-    <div class="meta"><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/53">#53</a></div><div class="ti">ペットボトルに当たる</div>
-    <div class="body"><p>本文が経路図1枚だけで、どのボトルに経路のどこで当たったかが分からない。書き足してから分類し直す。</p></div>
-    <div class="meta"><span class="v u">版を決められない</span><span class="tag">情報不足</span></div></div>
-</div>
-
-<h3><span class="pin">3</span>ボトルデリバリー</h3>
-<div class="items">
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/73">#73</a></div><div class="ti">赤ルート（SNO 21）でハブがリセット／asp が丸ごと止まる</div>
-    <div class="body"><p>9/26 に2回。起きたのは開発版の走行だが、ハブや電源の話で、安定版でも同じ区間を走る。原因は分かっていない。</p>
-    <p>対応：コードは直さない。止まったとき、ハブの電源を切る前に gdb で止まった場所を取る手順と、走る前の電池の確認を、現場の手順に入れる。</p></div>
-    <div class="meta"><span class="v m">開発版の走行・原因は版に依らない見込み</span><span class="tag">手順のみ</span></div></div>
-</div>
-
-<h3><span class="pin">2</span>ヒントカード</h3>
-<div class="items">
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/75">#75</a></div><div class="ti">custom_Left.json と custom_Right.json に、左右反転でない違いがある</div>
-    <div class="body"><p>20/7 の SCV（読めている必要のある枚数）が L=2・R=1 で、R はヒントカード2を読めなくても先へ進む。21/12・22/9 の旋回角が左右で揃っていない（-100 と 95、-90 と 95）。止まる時間も 8000 と 2000 で大きく違う。</p>
-    <p>対応：意図した違いか、合わせ忘れかを確かめる。Rコースを本番で走る可能性があるなら早めに。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">custom_Left/Right.json</span><span class="tag">作り直し不要</span></div></div>
-</div>
-
-<h3><span class="pin">1</span>スタート〜LAPゲート</h3>
-<div class="items">
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/58">#58</a></div><div class="ti">走り出しを詰める（規約確認済み）</div>
-    <div class="body"><p>計時は合図から始まる。今は「ボタンを離した瞬間」に走り出すので、押してから離すまでが丸ごとタイムに入る。スタートエリアの一番前に置く手順も残す。</p>
-    <p>対応：置き方と開始の音の待ち（100ms）はすぐできる。「押した瞬間に走り出す」はフライング（-35点）の危険があるので、スターターの手順と合わせて決める。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">手順・C++</span><span class="tag">1秒＝1点</span></div></div>
-</div>
-
-<h3><span class="pin" style="background:var(--sub)">・</span>コースの外：通信と記録</h3>
-<div class="items">
-  <div class="it p1"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/37">#37</a></div><div class="ti">母艦の Bluetooth／イーサネットのサブネットマスクが /16</div>
-    <div class="body"><p>LAN ケーブルを挿した瞬間に、走行体宛の通信がイーサネット側へ吸われて消える恐れがある。PC との通信が切れると ETラリーの経路が届かない。</p>
-    <p>対応：Windows の設定で Bluetooth を /24 にし、イーサネットの手動 IP を外す。5分で済む。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">母艦の設定</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/36">#36</a></div><div class="ti">走行体の Bluetooth が hardware error で止まる</div>
-    <div class="body"><p>起動から約25分で起き、再起動しないと戻らない。原因は不明。</p>
-    <p>対応：本番前に再起動する手順を入れる。journal を残す設定（/var/log/journal）にして、次に起きたとき追えるようにする。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">手順・設定</span></div></div>
-  <div class="it"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/61">#61</a></div><div class="ti">後から追えない記録を足す（入口の画像・旋回の時間切れ）</div>
-    <div class="body"><p>入口（29/2）の画像が毎回上書きされ、止まった位置を後から測れない。旋回が時間切れで終わったのか角度で終わったのかもログに出ない。#59・#60 の確認に要る。</p></div>
-    <div class="meta"><span class="v s">安定版</span><span class="tag">Python・C++</span><span class="tag rb">作り直し（旋回のログ）</span></div></div>
-</div>
-
-<h2 id="dont">CS大会までに対応しない（未完了 11件／全15件）</h2>
-<p>開発版だけで起きるもの、作る量に対して危険が大きいもの、情報が足りないもの。閉じるか、CS大会の後に回す。</p>
-
-<h3><span class="pin">4</span>開発版の向きの打ち直し（安定版には入っていない）</h3>
-<div class="items">
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/77">#77</a></div><div class="ti">床のコードの打ち直しが収束しない</div>
-    <div class="body"><p>打ち直すたびに、次の測りで同じ量をまた打ち直す作り。起きるのは開発版で <span class="mono">heading_fix.txt=1</span> にしたときだけ。安定版は経路の行で使っていない。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/78">#78</a></div><div class="ti">その場の打ち直し（615c804）と上限15°（49e6331）を残すか</div>
-    <div class="body"><p>9/26 の実機で悪化した。どちらも開発版にしか入っていない。開発版から外すかどうかは CS大会の後に決める。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/70">#70</a></div><div class="ti">床のコードで打ち直すと、ずれが育つ</div>
-    <div class="body"><p>#76（符号）と #77（収束しない）に分けて書き直されたので、重複として閉じる。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v d">開発版</span><span class="tag">重複（#76・#77）</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/79">#79</a></div><div class="ti">9/26 10:35 に6本すべてのゲートに当たった</div>
-    <div class="body"><p>開発版の走行。原因は #76・#77 の打ち直しとみている。経路が中点を通っていることは確認済み（記録として残す）。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/72">#72</a></div><div class="ti">経路の前（29/1）で測った向きが 3° までしか当たらない</div>
-    <div class="body"><p>29/1 の測る行は開発版（0cf2e89）にしか無い。安定版の入口は #59 で揃える。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></div><div class="ti">develop に 9/26 rev1 で効いた直しが入っていない</div>
-    <div class="body"><p>開発版の直しを安定版へ持ち込む話なので、原則しない。例外は 29/2 の heading_fix.py で、#76 の確認で符号が逆と分かったら安定版でも止める。</p></div>
-    <div class="meta"><span class="v n">版の比較の話</span><span class="tag">開発版のみ</span><span class="tag">#76 次第</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/71">#71</a></div><div class="ti">1周目の最初のゲートで毎回 50〜110mm 横にずれる</div>
-    <div class="body"><p>記録は開発版の走行。中身（入口の向き・横ずれ）は #54・#59・#63 と同じなので、そちらに寄せて閉じる。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v m">開発版の走行・安定版でも起きる</span><span class="tag">#54・#63 へ統合</span></div></div>
-</div>
-
-<h3><span class="pin">5</span>ゲートの寄せ・避け（作る量と危険が大きい）</h3>
-<div class="items">
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/67">#67</a></div><div class="ti">柱が1本しか見えなくても判定し、寄せる</div>
-    <div class="body"><p>開発版にだけ入っている機能。自己位置が 127mm 以上ずれると左右を取り違える。#63 で「寄せを入れる」と決めたら、そのときに見直す。</p></div>
-    <div class="meta"><span class="v d">開発版</span><span class="tag">開発版のみ</span><span class="tag">#63 次第</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/69">#69</a></div><div class="ti">走行体がゲートの手前で止まり、横へずれて入り直す</div>
-    <div class="body"><p>寄せの 49mm の上限が無くなる、いちばん効く案。ただし行を挿し込むと後ろの行番号が振り直され、経路の見張りが別の行を書き直す危険がある。作って確かめる量が大きいので、CS大会の後に回す。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">新機能</span><span class="tag">大会後</span></div></div>
-</div>
-
-<h3><span class="pin">1</span>LAPまでのタイム短縮（制御の中身を変える）</h3>
-<div class="items">
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/56">#56</a></div><div class="ti">カーブの行にあらかじめ旋回量を足す（見込み 0.4〜0.6秒）</div>
-    <div class="body"><p>ライントレース全体の制御式を変える（C++）。すべてのエッジ走行に効くので、確かめ直す範囲が広い。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag rb">作り直し</span><span class="tag">大会後</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/57">#57</a></div><div class="ti">10/6 を FWD 100 に戻す</div>
-    <div class="body"><p>#56 を入れてからの話。FWD 100 ではカーブを曲がりきれず外れた（#52）。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v n">版に依らない</span><span class="tag">#56 の後</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/55">#55</a></div><div class="ti">LAPゲートまでの走行時間を縮める（親）</div>
-    <div class="body"><p>見取り図の issue。CS大会までに手を付けるのは #58 の置き方だけ。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">まとめ役</span></div></div>
-</div>
-
-<h3><span class="pin" style="background:var(--sub)">・</span>未決定・資料</h3>
-<div class="items">
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/15">#15</a></div><div class="ti">走行体の残り時間を PC へ渡す（I/F 未決定・動作未確認）</div>
-    <div class="body"><p>インターフェースが決まっておらず、3リポジトリに枝が散っている。無くても走れる。</p></div>
-    <div class="meta"><span class="v n">版に依らない</span><span class="tag">未決定</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/23">#23</a></div><div class="ti">赤と黄が上下に並ぶとき、赤を通った後に黄を通ってはならない</div>
-    <div class="body"><p>タイトルだけのチェックリスト。確かめた結果は #66 にあるので、#66 で規約を確かめたら一緒に閉じる。</p></div>
-    <div class="meta"><span class="v s">大会前の版</span><span class="tag">#66 へ統合</span></div></div>
-  <div class="it dont"><div class="no"><a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/45">#45</a></div><div class="ti">ETラリーの縦方向の移動が長い?</div>
-    <div class="body"><p>「気がする」という記述だけ。turn_drift=1 のときの行き過ぎと同じとみられ、9/25 に 0 にした。確かめて閉じる。</p></div>
-    <div class="meta"><span class="v cl">クローズ済</span><span class="v s">大会前の版</span><span class="tag">確認して閉じる</span></div></div>
-</div>
-
-<h2 id="dup">重なっている issue</h2>
-<div class="tw"><table>
-  <thead><tr><th>残すほう</th><th>寄せて閉じてよいもの</th><th>理由</th></tr></thead>
-  <tbody>
-    <tr><td class="num">#76・#77</td><td class="num">#70</td><td>同じ件を2つに分けて書き直した</td></tr>
-    <tr><td class="num">#54・#59・#63</td><td class="num">#71・#19<span class="v cl">済</span></td><td>1周目の横ずれと、その原因（入口の向き）</td></tr>
-    <tr><td class="num">#65</td><td class="num">#38（確認後）</td><td>お尻が当たるのは車体寸法と旋回の余裕の話</td></tr>
-    <tr><td class="num">#66</td><td class="num">#23</td><td>#66 が #23 を確かめた結果</td></tr>
-  </tbody>
-</table></div>
-
 <h2 id="after">【一覧】大会後の対応方針を決める（2026-09-29 時点の open issue）</h2>
+<p class="histnote">2026-09-29〜10-01 時点の記録（<span class="v cl">済</span> は 10-01 時点）。いまの状態は先頭の一覧を参照。</p>
 <p class="k">元の issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a></p>
 <p>大会（9/27）後に開いている issue を、<b>決めることごと</b>に並べた一覧。方針が決まったら、ここにチェックを入れて各 issue へ書く。</p>
 <h3>1. ETラリーの精度（<a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/54">#54</a> が中心）</h3>
@@ -631,6 +629,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </table></div>
 
 <h2 id="d74">develop に 9/26 rev1 で効いた直しが入っていない（29/2 heading_fix.py・29/1・gate_steer・follow_plan）</h2>
+<p class="histnote">2026-09-29〜10-01 時点の記録（<span class="v cl">済</span> は 10-01 時点）。いまの状態は先頭の一覧を参照。</p>
 <p class="k">元の issue: <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/74">#74</a></p>
 <h3>何が起きたか</h3>
 <p><code>origin/develop</code>（e1d541b 時点）には、2026-09-26 に <code>develop_20260926_rev1</code> で効いた直しが入っていない。develop で Lコースを走ると、昨日いちばん良かった走り（14:36、0cf2e89）とは次の点が違う。</p>
@@ -657,6 +656,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </ul>
 
 <h2 id="ver">どの版で起きたか（安定版／開発版）</h2>
+<p class="histnote">2026-09-29〜10-01 時点の記録（<span class="v cl">済</span> は 10-01 時点）。いまの状態は先頭の一覧を参照。</p>
 <p class="k">issue 本文・起票日・git の履歴から分類した。9/26 の走行ログはこの Mac に無いため、その日の版は Issue 内の版の記載と、コミットが入っているブランチから決めた。</p>
 <h3>安定版で起きた（develop ffe75be・大会の版）（8件）</h3>
 <p class="k">大会の版の走行、または大会の版のファイルの問題。対応の対象</p>
@@ -730,7 +730,7 @@ footer{margin-top:48px;color:var(--sub);font-size:13px}
 </table></div>
 
 <footer>
-  一覧の issue <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/64">#64</a>・パラメータ一覧 <a href="https://github.com/sorot-scskq/ET_2026_REHEARSAL/issues/47">#47</a> は資料なので分類から外した。コースの地図はチームのパンフレットの Lコース図。数字は各 issue の本文から。
+  2026-11-03 に GitHub の issue（open・closed）と 9/29 以降のコメントを読み直して更新した。コースの地図はチームのパンフレットの Lコース図。数字は各 issue の本文とコメントから。
 </footer>
 </div>
 
